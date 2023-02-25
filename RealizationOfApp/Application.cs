@@ -2,9 +2,9 @@
 using Textboxes;
 using SfmlAppLib;
 
-namespace LabsDiscret
+namespace RealizationOfApp
 {
-    internal class Application
+    public class Application
     {
         public RenderWindow window;
         public Graph graph = new();
@@ -12,7 +12,8 @@ namespace LabsDiscret
         public List<IEventHandler> eventHandlers = new();
         public Application()
         {
-            window = new RenderWindow(new VideoMode(1280, 720), "LabsDiscret");
+            window = new RenderWindow(new VideoMode(1280, 720), "Lines");
+            eventDrawables.Add(new GUI(new GUIFactoryA()));
             window.MouseMoved+=MouseMoved;
             window.KeyPressed+=KeyPressed;
             window.MouseButtonReleased+=MouseButtonReleased;
@@ -34,27 +35,27 @@ namespace LabsDiscret
         public void MouseMoved(object? source, MouseMoveEventArgs e)
         {
             foreach (EventDrawable eventDrawable in eventDrawables)
-                eventDrawable.MouseMoved(source, e);
+                eventDrawable.MouseMoved(this, e);
         }
         public void MouseButtonPressed(object? source, MouseButtonEventArgs e)
         {
             foreach (EventDrawable eventDrawable in eventDrawables)
-                eventDrawable.MouseButtonPressed(source, e);
+                eventDrawable.MouseButtonPressed(this, e);
         }
         public void MouseButtonReleased(object? source, MouseButtonEventArgs e)
         {
             foreach (EventDrawable eventDrawable in eventDrawables)
-                eventDrawable.MouseButtonReleased(source, e);
+                eventDrawable.MouseButtonReleased(this, e);
         }
         public void KeyPressed(object? source, KeyEventArgs e)
         {
             foreach (EventDrawable eventDrawable in eventDrawables)
-                eventDrawable.KeyPressed(source, e);
+                eventDrawable.KeyPressed(this, e);
         }
         public void MouseWheelScrolled(object? source, MouseWheelScrollEventArgs e)
         {
             foreach (EventDrawable eventDrawable in eventDrawables)
-                eventDrawable.MouseWheelScrolled(source, e);
+                eventDrawable.MouseWheelScrolled(this, e);
         }
         public void Closed(object? source, EventArgs e)
         {

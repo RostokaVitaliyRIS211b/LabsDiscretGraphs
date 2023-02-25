@@ -24,53 +24,53 @@
             rect = new RectangleShape();
             text = new Text();
             font = new Font(Directory.GetCurrentDirectory()+"/ofont.ru_Impact.ttf"); text.Font = font;
-            set_size_character_text((int)textbox.text.CharacterSize);
-            set_string(textbox.text.DisplayedString);
-            set_color_text(textbox.text.FillColor);
-            set_outline_color_rect(textbox.rect.OutlineColor);
-            set_outline_thickness_rect(textbox.rect.OutlineThickness);
-            set_Fill_color_rect(textbox.rect.FillColor);
-            set_size_rect(textbox.rect.Size);
-            set_pos(textbox.rect.Position);
+            SetSizeCharacterText((int)textbox.text.CharacterSize);
+            SetString(textbox.text.DisplayedString);
+            SetColortText(textbox.text.FillColor);
+            SetOutlineColorRect(textbox.rect.OutlineColor);
+            SetOutlineThicknessRect(textbox.rect.OutlineThickness);
+            SetFillColorRect(textbox.rect.FillColor);
+            SetSizeRect(textbox.rect.Size);
+            SetPos(textbox.rect.Position);
         }
         public void Copy(in Textbox textbox)
         {
-            set_size_character_text((int)textbox.text.CharacterSize);
-            set_string(textbox.text.DisplayedString);
-            set_color_text(textbox.text.FillColor);
-            set_outline_color_rect(textbox.rect.OutlineColor);
-            set_outline_thickness_rect(textbox.rect.OutlineThickness);
-            set_Fill_color_rect(textbox.rect.FillColor);
-            set_size_rect(textbox.rect.Size);
-            set_pos(textbox.rect.Position);
+            SetSizeCharacterText((int)textbox.text.CharacterSize);
+            SetString(textbox.text.DisplayedString);
+            SetColortText(textbox.text.FillColor);
+            SetOutlineColorRect(textbox.rect.OutlineColor);
+            SetOutlineThicknessRect(textbox.rect.OutlineThickness);
+            SetFillColorRect(textbox.rect.FillColor);
+            SetSizeRect(textbox.rect.Size);
+            SetPos(textbox.rect.Position);
         }
-        public void set_color_text(Color color)
+        public void SetColortText(Color color)
         {
             text.FillColor=color;
         }
-        public void set_Fill_color_rect(Color color)
+        public void SetFillColorRect(Color color)
         {
             rect.FillColor = color;
         }
-        public void set_outline_color_rect(Color color)
+        public void SetOutlineColorRect(Color color)
         {
             rect.OutlineColor = color;
         }
-        public void set_outline_thickness_rect(float thick)
+        public void SetOutlineThicknessRect(float thick)
         {
             rect.OutlineThickness = thick;
         }
-        public void set_size_rect(float width, float height)
+        public void SetSizeRect(float width, float height)
         {
             rect.Size = new Vector2f(width, height);
             rect.Origin = new Vector2f(width / 2, height / 2);
         }
-        public void set_size_rect(Vector2f size)
+        public void SetSizeRect(Vector2f size)
         {
             rect.Size = size;
             rect.Origin = new Vector2f(size.X / 2, size.Y / 2);
         }
-        public void set_pos(float x, float y)
+        public void SetPos(float x, float y)
         {
             //suConsole.WriteLine("rect {0} {1}", rect.Origin, rect.Size);
             text.Origin = new Vector2f(text.GetGlobalBounds().Width / 2f, text.GetGlobalBounds().Height / 2f+text.CharacterSize/6f);// магические числа на
@@ -78,7 +78,7 @@
             text.Position = new Vector2f(x, y);
             //suConsole.WriteLine("text {0} {1} {2}", text.Origin, text.GetGlobalBounds().Width, text.GetGlobalBounds().Top);
         }
-        public void set_pos(Vector2f vec)
+        public void SetPos(Vector2f vec)
         {
             //suConsole.WriteLine("rect {0} {1}", rect.Origin, rect.Size);
             text.Origin = new Vector2f(text.GetGlobalBounds().Width / 2f, text.GetGlobalBounds().Height / 2f + text.CharacterSize / 6f);// магические числа на
@@ -86,37 +86,37 @@
             text.Position = vec;
             //suConsole.WriteLine("text {0} {1} {2}", text.Origin, text.GetGlobalBounds().Width, text.GetGlobalBounds().Top);
         }
-        public void set_size_character_text(int size)
+        public void SetSizeCharacterText(int size)
         {
             text.CharacterSize = (uint)size;
             text.Origin = new Vector2f(text.GetGlobalBounds().Width / 2f, text.GetGlobalBounds().Height / 2f + text.CharacterSize / 6f);// магические числа на
         }
-        public void set_string(string str)
+        public void SetString(string str)
         {
             text.DisplayedString = str;
             text.Origin = new Vector2f(text.GetGlobalBounds().Width / 2f, text.GetGlobalBounds().Height / 2f + text.CharacterSize / 6f);// магические числа на
         }
-        public string get_string()
+        public string GetString()
         {
             return text.DisplayedString;
         }
-        public Vector2f get_size_rect()
+        public Vector2f GetSizeRect()
         {
             return rect.Size;
         }
-        public Vector2f get_position()
+        public Vector2f GetPosition()
         {
             return rect.Position;
         }
-        public bool contains(float x,float y)
+        public bool Contains(float x,float y)
         {
             return rect.GetGlobalBounds().Contains(x, y);
         }
-        public bool contains (Vector2f pos)
+        public bool Contains (Vector2f pos)
         {
             return rect.GetGlobalBounds().Contains(pos.X, pos.Y);
         }
-        public bool contains(Vector2i pos)
+        public bool Contains(Vector2i pos)
         {
             return rect.GetGlobalBounds().Contains(pos.X, pos.Y);
         }

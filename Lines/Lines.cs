@@ -1,6 +1,6 @@
 ﻿
 
-namespace LabsDiscret
+namespace Lines
 {
     public class VectorFloat
     {
@@ -38,8 +38,8 @@ namespace LabsDiscret
         protected Vertex vertex2;
         protected Font font= new Font(Directory.GetCurrentDirectory()+"/ofont.ru_Impact.ttf");
         protected Text weight1;
-        protected Text weight2;
-        protected const int CharacterSize = 15;
+        //protected Text weight2;
+        protected readonly uint CharacterSize = 15;
         public Edge()
         {
             weight1 = new()
@@ -49,9 +49,18 @@ namespace LabsDiscret
                 CharacterSize=15,
                 OutlineColor = Color.White
             };
-            weight2 = new(weight1);
+            //weight2 = new(weight1);
         }
-        public Edge(Vertex vertex1,Vertex vertex2,string text1,bool isOne)
+        public Edge (Edge edge)
+        {
+            vertex1 = edge.vertex1;
+            vertex2 = edge.vertex2;
+            font = edge.font;
+            weight1 = new(edge.weight1);
+            //weight2 = new(edge.weight2);
+            CharacterSize = edge.CharacterSize;
+        }
+        public Edge(Vertex vertex1,Vertex vertex2,string text1)
         {
             weight1 = new()
             {
@@ -60,16 +69,16 @@ namespace LabsDiscret
                 CharacterSize=CharacterSize,
                 OutlineColor = Color.White
             };
-            weight2 = new(weight1);
+            //weight2 = new(weight1);
 
-            weight1.DisplayedString=isOne ? text1 : null;
-            weight2.DisplayedString=!isOne ? text1 : null;
+            weight1.DisplayedString= text1 ;
+            //weight2.DisplayedString=!isOne ? text1 : null;
 
-            weight1.OutlineThickness = isOne ? 5 : 0;
-            weight2.OutlineThickness = !isOne ? 5 : 0;
+            weight1.OutlineThickness = 5 ;
+            //weight2.OutlineThickness = !isOne ? 5 : 0;
 
             weight1.Origin = new Vector2f(weight1.GetGlobalBounds().Width / 2f, weight1.GetGlobalBounds().Height / 2f+weight1.CharacterSize/6f);// магические числа на
-            weight2.Origin = new Vector2f(weight1.GetGlobalBounds().Width / 2f, weight1.GetGlobalBounds().Height / 2f+weight1.CharacterSize/6f);// магические числа на
+            //weight2.Origin = new Vector2f(weight1.GetGlobalBounds().Width / 2f, weight1.GetGlobalBounds().Height / 2f+weight1.CharacterSize/6f);// магические числа на
 
             this.vertex1 = new(vertex1.Position,vertex1.Color);
             this.vertex2 = new(vertex2.Position, vertex2.Color);
@@ -78,38 +87,38 @@ namespace LabsDiscret
             float posYMiddle = (vertex1.Position.Y+vertex2.Position.Y-CharacterSize);
 
             weight1.Position = new Vector2f(posXMiddle-posXMiddle/2, posYMiddle-posYMiddle/2);
-            weight2.Position = new Vector2f(posXMiddle+posXMiddle/2, posYMiddle+posYMiddle/2);
+            //weight2.Position = new Vector2f(posXMiddle+posXMiddle/2, posYMiddle+posYMiddle/2);
         }
-        public Edge(Vertex vertex1, Vertex vertex2, string text1, string text2)
-        {
-            weight1 = new();
-            weight2 = new();
+        //public Edge(Vertex vertex1, Vertex vertex2, string text1, string text2)
+        //{
+        //    weight1 = new();
+        //    weight2 = new();
 
-            weight1.DisplayedString=text1;
-            weight2.DisplayedString=text2;
+        //    weight1.DisplayedString=text1;
+        //    weight2.DisplayedString=text2;
 
-            weight1.OutlineThickness = 5;
-            weight2.OutlineThickness = 5;
+        //    weight1.OutlineThickness = 5;
+        //    weight2.OutlineThickness = 5;
 
-            weight1.Origin = new Vector2f(weight1.GetGlobalBounds().Width / 2f, weight1.GetGlobalBounds().Height / 2f+weight1.CharacterSize/6f);// магические числа на
-            weight2.Origin = new Vector2f(weight1.GetGlobalBounds().Width / 2f, weight1.GetGlobalBounds().Height / 2f+weight1.CharacterSize/6f);// магические числа на
+        //    weight1.Origin = new Vector2f(weight1.GetGlobalBounds().Width / 2f, weight1.GetGlobalBounds().Height / 2f+weight1.CharacterSize/6f);// магические числа на
+        //    weight2.Origin = new Vector2f(weight1.GetGlobalBounds().Width / 2f, weight1.GetGlobalBounds().Height / 2f+weight1.CharacterSize/6f);// магические числа на
 
-            this.vertex1 = new(vertex1.Position, vertex1.Color);
-            this.vertex2 = new(vertex2.Position, vertex2.Color);
+        //    this.vertex1 = new(vertex1.Position, vertex1.Color);
+        //    this.vertex2 = new(vertex2.Position, vertex2.Color);
 
-            float posXMiddle = (vertex1.Position.X+vertex2.Position.X-CharacterSize);
-            float posYMiddle = (vertex1.Position.Y+vertex2.Position.Y-CharacterSize);
+        //    float posXMiddle = (vertex1.Position.X+vertex2.Position.X-CharacterSize);
+        //    float posYMiddle = (vertex1.Position.Y+vertex2.Position.Y-CharacterSize);
 
-            weight1.Position = new Vector2f(posXMiddle-posXMiddle/2,posYMiddle-posYMiddle/2);
-            weight2.Position = new Vector2f(posXMiddle+posXMiddle/2, posYMiddle+posYMiddle/2);
-        }
+        //    weight1.Position = new Vector2f(posXMiddle-posXMiddle/2,posYMiddle-posYMiddle/2);
+        //    weight2.Position = new Vector2f(posXMiddle+posXMiddle/2, posYMiddle+posYMiddle/2);
+        //}
         public void SetVertex1(float x,float y)
         {
             vertex1.Position = new Vector2f(x, y);
             float posXMiddle = (vertex1.Position.X+vertex2.Position.X-CharacterSize);
             float posYMiddle = (vertex1.Position.Y+vertex2.Position.Y-CharacterSize);
             weight1.Position = new Vector2f(posXMiddle-posXMiddle/2, posYMiddle-posYMiddle/2);
-            weight2.Position = new Vector2f(posXMiddle+posXMiddle/2, posYMiddle+posYMiddle/2);
+            //weight2.Position = new Vector2f(posXMiddle+posXMiddle/2, posYMiddle+posYMiddle/2);
         }
         public void SetVertex2(float x, float y)
         {
@@ -117,7 +126,7 @@ namespace LabsDiscret
             float posXMiddle = (vertex1.Position.X+vertex2.Position.X-CharacterSize);
             float posYMiddle = (vertex1.Position.Y+vertex2.Position.Y-CharacterSize);
             weight1.Position = new Vector2f(posXMiddle-posXMiddle/2, posYMiddle-posYMiddle/2);
-            weight2.Position = new Vector2f(posXMiddle+posXMiddle/2, posYMiddle+posYMiddle/2);
+            //weight2.Position = new Vector2f(posXMiddle+posXMiddle/2, posYMiddle+posYMiddle/2);
         }
         public void SetVertex1(Vector2f vector)
         {
@@ -125,7 +134,7 @@ namespace LabsDiscret
             float posXMiddle = (vertex1.Position.X+vertex2.Position.X-CharacterSize);
             float posYMiddle = (vertex1.Position.Y+vertex2.Position.Y-CharacterSize);
             weight1.Position = new Vector2f(posXMiddle-posXMiddle/2, posYMiddle-posYMiddle/2);
-            weight2.Position = new Vector2f(posXMiddle+posXMiddle/2, posYMiddle+posYMiddle/2);
+            //weight2.Position = new Vector2f(posXMiddle+posXMiddle/2, posYMiddle+posYMiddle/2);
         }
         public void SetVertex2(Vector2f vector)
         {
@@ -133,7 +142,7 @@ namespace LabsDiscret
             float posXMiddle = (vertex1.Position.X+vertex2.Position.X-CharacterSize);
             float posYMiddle = (vertex1.Position.Y+vertex2.Position.Y-CharacterSize);
             weight1.Position = new Vector2f(posXMiddle-posXMiddle/2, posYMiddle-posYMiddle/2);
-            weight2.Position = new Vector2f(posXMiddle+posXMiddle/2, posYMiddle+posYMiddle/2);
+            //weight2.Position = new Vector2f(posXMiddle+posXMiddle/2, posYMiddle+posYMiddle/2);
         }
         public void SetFont(Font font)
         {
@@ -148,14 +157,14 @@ namespace LabsDiscret
             weight1.OutlineThickness = 5;
             
         }
-        public void SetWeight2(string number)
-        {
-            weight2.DisplayedString=number;
+        //public void SetWeight2(string number)
+        //{
+        //    weight2.DisplayedString=number;
 
-            weight2.Origin = new Vector2f(weight1.GetGlobalBounds().Width / 2f, weight1.GetGlobalBounds().Height / 2f+weight1.CharacterSize/6f);// магические числа на
+        //    weight2.Origin = new Vector2f(weight1.GetGlobalBounds().Width / 2f, weight1.GetGlobalBounds().Height / 2f+weight1.CharacterSize/6f);// магические числа на
 
-            weight1.OutlineThickness = 5;
-        }
+        //    weight1.OutlineThickness = 5;
+        //}
         public float Dlina(float x,float y,float x1,float y1)
         {
             return (float)Math.Sqrt(Math.Pow(x-x1,2)+Math.Pow(y-y1, 2));
@@ -192,7 +201,7 @@ namespace LabsDiscret
         {
             target.Draw(ToArr(), PrimitiveType.Lines, states);
             target.Draw(weight1);
-            target.Draw(weight2);
+            //target.Draw(weight2);
         }
         public Vertex[] ToArr()
         {

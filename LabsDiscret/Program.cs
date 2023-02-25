@@ -1,7 +1,7 @@
 ﻿using Matrixs;
 using Graphs;
 
-namespace LabsDiscret
+namespace Lines
 {
     internal class Program
     {

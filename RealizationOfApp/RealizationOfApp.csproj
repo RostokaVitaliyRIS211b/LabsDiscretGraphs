@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Graph\Graphs.csproj" />
+    <ProjectReference Include="..\Lines\Lines.csproj" />
     <ProjectReference Include="..\Matrixs\Matrixs.csproj" />
     <ProjectReference Include="..\SfmlAppLib\SfmlAppLib.csproj" />
     <ProjectReference Include="..\Textboxes\Textboxes.csproj" />
