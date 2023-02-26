@@ -1,5 +1,6 @@
 ﻿
-using SFML.Graphics;
+
+using Microsoft.VisualBasic;
 
 namespace RealizationOfApp
 {
@@ -58,7 +59,9 @@ namespace RealizationOfApp
             }
             else if(IsAlive && !IsNew && e.Button == Mouse.Button.Right && edge.Contains(e.X,e.Y) && source is Application app2)
             {
-                Console.WriteLine("GA");
+                foreach (EventDrawable ev in app2.eventDrawables)
+                    ev.IsAlive=false;
+                app2.eventDrawables.Add(new EnterTextEdge(edge.GetWeightPosition(), this));
             }
             else if (IsAlive && !IsNew && e.Button == Mouse.Button.Middle && edge.Contains(e.X, e.Y))
             {

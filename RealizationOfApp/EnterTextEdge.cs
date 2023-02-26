@@ -27,14 +27,17 @@ namespace RealizationOfApp
         {
             if(IsAlive && e.Code!=Keyboard.Key.Enter)
             {
-                textbox.SetString(textbox.GetString()+ConvertToInt(e.Code));
+                textbox.SetString(ConvertToInt(textbox.GetString(), e.Code));
             }
-            else if(IsAlive && e.Code==Keyboard.Key.Enter)
+            else if(IsAlive && e.Code==Keyboard.Key.Enter && source is Application app)
             {
                 IsAlive = false;
                 if (!Int32.TryParse(textbox.GetString(), out weight))
                     weight = 1;
                 edge.SetWeight(weight);
+                app.graph[edge.startVer.GetString(), edge.endVer.GetString()]=weight;
+                foreach (EventDrawable ev in app.eventDrawables)
+                    ev.IsAlive=true;
                 IsNeedToRemove = true;
             }
         }
@@ -51,44 +54,47 @@ namespace RealizationOfApp
                 clock.Restart();
             textbox.Draw(target, states);
         }
-        public string ConvertToInt(Keyboard.Key key)
+        public string ConvertToInt(string text,Keyboard.Key key)
         {
-            string s = "";
             switch (key)
             {
                 case Keyboard.Key.Num0:
-                    s="0";
+                    text+="0";
                     break;
                 case Keyboard.Key.Num1:
-                    s="1";
+                    text+="1";
                     break;
                 case Keyboard.Key.Num2:
-                    s="2";
+                    text+="2";
                     break;
                 case Keyboard.Key.Num3:
-                    s="3";
+                    text+="3";
                     break;
                 case Keyboard.Key.Num4:
-                    s="4";
+                    text+="4";
                     break;
                 case Keyboard.Key.Num5:
-                    s="5";
+                    text+="5";
                     break;
                 case Keyboard.Key.Num6:
-                    s="6";
+                    text+="6";
                     break;
                 case Keyboard.Key.Num7:
-                    s="7";
+                    text+="7";
                     break;
                 case Keyboard.Key.Num8:
-                    s="8";
+                    text+="8";
                     break;
                 case Keyboard.Key.Num9:
-                    s="9";
+                    text+="9";
+                    break;
+                case Keyboard.Key.Backspace:
+                    if(text.Length>0)
+                        text = text.Remove(text.Length-1, 1);
                     break;
             }
 
-            return s;
+            return text;
         }
     }
 }

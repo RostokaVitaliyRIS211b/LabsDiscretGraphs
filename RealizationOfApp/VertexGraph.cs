@@ -88,6 +88,18 @@ namespace RealizationOfApp
                 }  
             }
         }
+        public override void KeyPressed(object? source, KeyEventArgs e)
+        {
+            if(IsAlive && source is Application application)
+            {
+                if(e.Code==Keyboard.Key.N && circle.Contains(Mouse.GetPosition(application.window)))
+                {
+                    foreach (EventDrawable drawables in application.eventDrawables)
+                        drawables.IsAlive = false;
+                    application.eventDrawables.Add(new EnterTextVertex(circle.GetText().Position, this));
+                }
+            }
+        }
         public bool Contains(Vector2f vector)
         {
             return circle.Contains(vector);
@@ -108,6 +120,10 @@ namespace RealizationOfApp
         {
             BuffColor = color;
             circle.SetFillColorCircle(color);
+        }
+        public void SetName(string name)
+        {
+            circle.SetString(name);
         }
         public string GetString()
         {

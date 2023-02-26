@@ -556,6 +556,12 @@ namespace Graphs
         {
             return names.Contains(name);
         }
+        public void ChangeName(string oldName,string newName)
+        {
+            if (!names.Contains(oldName))
+                throw new Exception("This name does not exists");
+            names[names.IndexOf(oldName)]=newName;
+        }
         public record Edge(string NameOne,string NameTwo,int Weight);
     }
 }

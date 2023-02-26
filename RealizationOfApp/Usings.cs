@@ -5,3 +5,4 @@ global using SFML.Window;
 global using Textboxes;
 global using Lines;
 global using SfmlAppLib;
+global using Graphs;

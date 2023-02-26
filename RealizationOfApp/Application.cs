@@ -1,6 +1,4 @@
-﻿using Graphs;
-using Textboxes;
-using SfmlAppLib;
+﻿
 
 namespace RealizationOfApp
 {
@@ -8,6 +6,7 @@ namespace RealizationOfApp
     {
         public RenderWindow window;
         public Graph graph = new();
+        public List<List<EventDrawable>> eventDrawablesStates = new();
         public List<EventDrawable> eventDrawables=new();
         public List<IEventHandler> eventHandlers = new();
         public uint CurrentWidth = 1280, CurrentHeight = 720;
@@ -92,6 +91,7 @@ namespace RealizationOfApp
             {
                 eventDrawables[i].MouseWheelScrolled(this, e);
             }
+            Console.WriteLine(graph);
         }
         public void Closed(object? source, EventArgs e)
         {

@@ -239,6 +239,10 @@ namespace Lines
         {
             return weight1.DisplayedString;
         }
+        public Vector2f GetWeightPosition()
+        {
+            return weight1.Position;
+        }
         public void Draw(RenderTarget target,RenderStates states)
         {
             target.Draw(ToArr(), PrimitiveType.Lines, states);
