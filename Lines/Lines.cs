@@ -180,6 +180,14 @@ namespace Lines
         {
             return (float)Math.Sqrt(Math.Pow(point1.X-point2.X, 2)+Math.Pow(point1.Y-point2.Y, 2));
         }  
+        public void SetColor(Color color)
+        {
+            vertex1.Color = color;
+        }
+        public Color GetColor()
+        {
+            return vertex1.Color;
+        }
         public double Angle(float x, float y, float x1, float y1)
         {
             Vector2f b = new( 6, 0 );
@@ -195,17 +203,27 @@ namespace Lines
         }
         public bool Contains(float x, float y)
         {
-            double accuracy = 0.003;
+            double angle = Angle();
+            double accuracy = 0.15*Math.Abs(Math.Pow(angle,4));
+            if (angle<0.500 && angle>-0.400)
+                accuracy = 0.15;
+            if (angle>0.9999 || (angle<0.010 && angle>-0.011) || (angle<-0.9999))
+                accuracy = 2;
             double lengthOfLine = Dlina(vertex1.Position, vertex2.Position)+accuracy;
-            double lengthAboutToPoint = Dlina(x, y, vertex1.Position.X, vertex1.Position.Y) + Dlina(x, y, vertex2.Position.X, vertex2.Position.Y);
+            double lengthAboutToPoint = Dlina(x, y, vertex1.Position.X, vertex1.Position.Y);
             double checkPointNearToLine = Math.Abs((x-vertex1.Position.X)/(vertex2.Position.X-vertex1.Position.X) - (y-vertex1.Position.Y)/(vertex2.Position.Y-vertex1.Position.Y));
             return (checkPointNearToLine < accuracy) && ( lengthAboutToPoint <= lengthOfLine/2);
         }
         public bool Contains(Vector2f point)
         {
-            double accuracy = 0.003;
+            double angle = Angle();
+            double accuracy = 0.15*Math.Abs(Math.Pow(angle, 4));
+            if (angle<0.500 && angle>-0.400)
+                accuracy = 0.15;
+            if (angle>0.9999 || (angle<0.010 && angle>-0.011) || (angle<-0.9999))
+                accuracy = 2;
             double lengthOfLine = Dlina(vertex1.Position, vertex2.Position)+accuracy;
-            double lengthAboutToPoint = Dlina(point.X, point.Y, vertex1.Position.X, vertex1.Position.Y) + Dlina(point.X, point.Y, vertex2.Position.X, vertex2.Position.Y);
+            double lengthAboutToPoint = Dlina(point.X, point.Y, vertex1.Position.X, vertex1.Position.Y);
             double checkPointNearToLine = Math.Abs((point.X-vertex1.Position.X)/(vertex2.Position.X-vertex1.Position.X) - (point.Y-vertex1.Position.Y)/(vertex2.Position.Y-vertex1.Position.Y));
             return (checkPointNearToLine < accuracy) && (lengthAboutToPoint <= lengthOfLine/2);
         }
@@ -217,6 +235,10 @@ namespace Lines
         {
             return vertex2.Position;
         }
+        public string GetWeight()
+        {
+            return weight1.DisplayedString;
+        }
         public void Draw(RenderTarget target,RenderStates states)
         {
             target.Draw(ToArr(), PrimitiveType.Lines, states);
@@ -225,7 +247,7 @@ namespace Lines
         }
         public Vertex[] ToArr()
         {
-            return new Vertex[2] { vertex1, vertex2 };
+            return new Vertex[2] { vertex1,vertex2 };
         }
     }
 }

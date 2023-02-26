@@ -4,6 +4,7 @@ namespace SfmlAppLib
     public abstract class EventDrawable:IEventHandler,Drawable
     {
         public bool IsAlive { get; set; } = true;
+        public bool IsNeedToRemove { get; set; } = false;
         public virtual void MouseMoved(object? source,MouseMoveEventArgs e){}
         public virtual void MouseButtonPressed(object? source, MouseButtonEventArgs e) {}
         public virtual void MouseButtonReleased(object? source, MouseButtonEventArgs e) {}

@@ -30,6 +30,14 @@ namespace RealizationOfApp
             {
                 window.DispatchEvents();
                 window.Clear(Color.White);
+                for(int i=0;i<eventDrawables.Count;++i)
+                {
+                    if (eventDrawables[i].IsNeedToRemove)
+                    {
+                        eventDrawables.RemoveAt(i);
+                        --i;
+                    }
+                }
                 foreach (EventDrawable eventDrawable in eventDrawables)
                     window.Draw(eventDrawable);
                 window.Display();

@@ -1,19 +1,34 @@
 ﻿
+using SFML.Graphics;
+
 namespace RealizationOfApp
 {
     public class EdgeEv:EventDrawable
     {
         public Edge edge;
         public bool IsNew = false;
-        public EdgeEv(Edge edge)
+        public VertexGraph startVer;
+        public VertexGraph endVer;
+        public Color BuffColor;
+        public EdgeEv(Edge edge,VertexGraph start)
         {
             this.edge = new(edge);
+            BuffColor = edge.GetColor();
+            startVer = start;
         }
         public override void MouseMoved(object? source, MouseMoveEventArgs e)
         {
             if (IsAlive && IsNew && source is Application app)
             {
                 edge.SetVertex2(e.X, e.Y);
+            }
+            else if(IsAlive && !IsNew && edge.Contains(e.X, e.Y))
+            {
+                edge.SetColor(Color.Magenta);
+            }
+            else
+            {
+                edge.SetColor(BuffColor);
             }
         }
         public override void MouseButtonPressed(object? source, MouseButtonEventArgs e)
@@ -27,14 +42,20 @@ namespace RealizationOfApp
                         if(vertex.Contains(e.X,e.Y))
                         {
                             IsNew = false;
+                            endVer = vertex;
                             edge.SetVertex2(vertex.GetPos());
                             vertex.incindentEdges.Add(this);
                             foreach (EventDrawable eventDrawable1 in app.eventDrawables)
                                 eventDrawable1.IsAlive = true;
+                            app.graph[startVer.GetString(), vertex.GetString()] = Int32.Parse(edge.GetWeight());
                             break;
                         }
                     }
                 }
+            }
+            else if(IsAlive && !IsNew && e.Button == Mouse.Button.Right && edge.Contains(e.X,e.Y) && source is Application app2)
+            {
+                Console.WriteLine("GA");
             }
         }
         public bool Contains(Vector2f vector)
@@ -60,6 +81,10 @@ namespace RealizationOfApp
         public void SetPosVer2(float x, float y)
         {
             edge.SetVertex2(new(x, y));
+        }
+        public void SetWeight(int weight)
+        {
+            edge.SetWeight1(weight.ToString());
         }
         public override void Draw(RenderTarget target, RenderStates states)
         {

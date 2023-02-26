@@ -66,12 +66,17 @@ namespace RealizationOfApp
             {
                 foreach (EventDrawable drawables in app2.eventDrawables)
                     drawables.IsAlive = false;
-                EdgeEv edge = new(new Edge(new(circle.GetPosition(),Color.Black),new(new(e.X,e.Y), Color.Black),"10"));
+                EdgeEv edge = new(new Edge(new(circle.GetPosition(),Color.Black),new(new(e.X,e.Y), Color.Black),"10"),this);
                 edge.IsNew = true;
                 incindentEdges.Add(edge);
                 Arrow arrow = new(ref edge.edge);
                 app2.eventDrawables.Insert(app2.eventDrawables.Count-1, arrow);
                 app2.eventDrawables.Insert(0,edge);
+            }
+            else if(IsAlive && circle.Contains(e.X, e.Y) && !Catched && e.Button==Mouse.Button.Middle && source is Application app3)
+            {
+                foreach (EventDrawable drawables in app3.eventDrawables)
+                    drawables.IsAlive = false;
             }
         }
         public bool Contains(Vector2f vector)
@@ -94,6 +99,10 @@ namespace RealizationOfApp
         {
             BuffColor = color;
             circle.SetFillColorCircle(color);
+        }
+        public string GetString()
+        {
+            return circle.GetString();
         }
         public Vector2f GetPos()
         {

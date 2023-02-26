@@ -21,10 +21,10 @@ namespace RealizationOfApp
             bool DifferenceY = edge.GetPosVer1().Y-edge.GetPosVer2().Y<=0;
             float CosAngle = (float)edge.Angle();
             float SinAngle = (float)Math.Sqrt(1-CosAngle*CosAngle);
-            Vertex vertexArrMid = new(new(posXMiddle, posYMiddle), Color.Red);
-            Vertex verUp = new(new(posXMiddle -20*CosAngle, posYMiddle+ (DifferenceY ? -20*SinAngle : +20*SinAngle)), Color.Black);
-            Vertex verUp2 = new(new(verUp.Position.X +(!DifferenceY ? -10*SinAngle : +10*SinAngle), verUp.Position.Y-10*CosAngle), Color.Red);
-            Vertex verUp3 = new(new(verUp.Position.X -(!DifferenceY ? -10*SinAngle : +10*SinAngle), verUp.Position.Y+10*CosAngle), Color.Red);
+            Vertex vertexArrMid = new(new(posXMiddle, posYMiddle), edge.GetColor());
+            Vertex verUp = new(new(posXMiddle -20*CosAngle, posYMiddle+ (DifferenceY ? -20*SinAngle : +20*SinAngle)), edge.GetColor());
+            Vertex verUp2 = new(new(verUp.Position.X +(!DifferenceY ? -10*SinAngle : +10*SinAngle), verUp.Position.Y-10*CosAngle), edge.GetColor());
+            Vertex verUp3 = new(new(verUp.Position.X -(!DifferenceY ? -10*SinAngle : +10*SinAngle), verUp.Position.Y+10*CosAngle), edge.GetColor());
             Vertex[] vertices = new Vertex[3] { verUp2, verUp3, vertexArrMid };
             target.Draw(vertices, PrimitiveType.Triangles, states);
         }
