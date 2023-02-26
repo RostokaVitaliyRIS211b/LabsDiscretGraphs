@@ -60,8 +60,9 @@ namespace SfmlAppLib
             }
         }
         public override void Draw(RenderTarget target, RenderStates states) 
-        { 
-
+        {
+            foreach (EventDrawableGUI eventDrawableGUI in elementsOfGUI)
+                eventDrawableGUI.Draw(target, states);
         }
     }
 }

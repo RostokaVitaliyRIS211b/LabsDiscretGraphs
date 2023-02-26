@@ -26,7 +26,7 @@
             font = new Font(Directory.GetCurrentDirectory()+"/ofont.ru_Impact.ttf"); text.Font = font;
             SetSizeCharacterText((int)textbox.text.CharacterSize);
             SetString(textbox.text.DisplayedString);
-            SetColortText(textbox.text.FillColor);
+            SetColorText(textbox.text.FillColor);
             SetOutlineColorRect(textbox.rect.OutlineColor);
             SetOutlineThicknessRect(textbox.rect.OutlineThickness);
             SetFillColorRect(textbox.rect.FillColor);
@@ -37,14 +37,14 @@
         {
             SetSizeCharacterText((int)textbox.text.CharacterSize);
             SetString(textbox.text.DisplayedString);
-            SetColortText(textbox.text.FillColor);
+            SetColorText(textbox.text.FillColor);
             SetOutlineColorRect(textbox.rect.OutlineColor);
             SetOutlineThicknessRect(textbox.rect.OutlineThickness);
             SetFillColorRect(textbox.rect.FillColor);
             SetSizeRect(textbox.rect.Size);
             SetPos(textbox.rect.Position);
         }
-        public void SetColortText(Color color)
+        public void SetColorText(Color color)
         {
             text.FillColor=color;
         }
@@ -124,6 +124,10 @@
         {
             return text;
         }
+        public Color GetFillRectColor()
+        {
+            return rect.FillColor;
+        }
         public void Draw(RenderTarget target, RenderStates states)
         {
             target.Draw(rect, states);
@@ -161,7 +165,7 @@
             SetOutlineColorText(circleTextbox.GetText().OutlineColor);
             SetFillColorCircle(circleTextbox.GetFillColorCircle());
             SetFillColorText(circleTextbox.GetText().FillColor);
-            SetPosition(0, 0);
+            SetPosition(circleTextbox.GetPosition().X, circleTextbox.GetPosition().Y);
         }
         public void SetFillColorCircle(Color color)
         {

@@ -3,17 +3,28 @@ namespace RealizationOfApp
 {
     public class VertexGraph:EventDrawable
     {
+        public static int Counter { get; protected set; } = 0;
         protected CircleTextbox circle = new();
-        protected bool Catched = false;
+        public bool Catched = false;
+        public Color BuffColor;
         public VertexGraph(CircleTextbox circle)
         {
             this.circle = new(circle);
+            if (circle.GetString()=="")
+                circle.SetString(Counter.ToString());
+            ++Counter;
+
+            BuffColor = circle.GetFillColorCircle();
         }
         public override void MouseMoved(object? source, MouseMoveEventArgs e)
         {
-            if(IsAlive)
+            if(IsAlive && !Catched && circle.Contains(e.X,e.Y))
             {
                 circle.SetFillColorCircle(Color.Magenta);
+            }
+            else if(IsAlive && !Catched)
+            {
+                circle.SetFillColorCircle(BuffColor);
             }
             else if(IsAlive && Catched)
             {
@@ -26,7 +37,7 @@ namespace RealizationOfApp
             {
                 Catched = false;
                 foreach (EventDrawable drawables in app.eventDrawables)
-                    drawables.IsAlive = false;
+                    drawables.IsAlive = true;
             }
         }
         public override void MouseButtonPressed(object? source, MouseButtonEventArgs e)

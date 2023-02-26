@@ -59,7 +59,7 @@ namespace Graphs
             matrix = new(graph.matrix);
         }
         #endregion
-        public void AddVertex(in string name) 
+        public void AddVertex(in string name)
         {
             if (names.Contains(name))
                 throw new ArgumentException("This name already in graph");

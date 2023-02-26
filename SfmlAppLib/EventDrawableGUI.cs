@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace SfmlAppLib
 {
     public abstract class EventDrawableGUI:Drawable
     {
-        public bool IsAlive { get; set; }
+        public bool IsAlive { get; set; } = true;
         public virtual void MouseMoved(object? source, IEnumerable<EventDrawableGUI> elementsOfGUI, MouseMoveEventArgs e) { }
         public virtual void MouseButtonPressed(object? source, IEnumerable<EventDrawableGUI> elementsOfGUI, MouseButtonEventArgs e) { }
         public virtual void MouseButtonReleased(object? source, IEnumerable<EventDrawableGUI> elementsOfGUI, MouseButtonEventArgs e) { }

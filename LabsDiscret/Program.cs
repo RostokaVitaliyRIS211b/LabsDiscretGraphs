@@ -1,5 +1,6 @@
 ﻿using Matrixs;
 using Graphs;
+using RealizationOfApp;
 
 namespace Lines
 {
@@ -119,8 +120,8 @@ namespace Lines
             //Console.WriteLine(graph4);
             //Graph ostov = graph4.GetMinimunFrame();
             //Console.WriteLine(ostov);
-            //Application mainWindow = new();
-            //mainWindow.Start();
+            Application mainWindow = new();
+            mainWindow.Start();
         }
     }
 }
