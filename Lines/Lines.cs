@@ -199,7 +199,7 @@ namespace Lines
             double lengthOfLine = Dlina(vertex1.Position, vertex2.Position)+accuracy;
             double lengthAboutToPoint = Dlina(x, y, vertex1.Position.X, vertex1.Position.Y) + Dlina(x, y, vertex2.Position.X, vertex2.Position.Y);
             double checkPointNearToLine = Math.Abs((x-vertex1.Position.X)/(vertex2.Position.X-vertex1.Position.X) - (y-vertex1.Position.Y)/(vertex2.Position.Y-vertex1.Position.Y));
-            return (checkPointNearToLine < accuracy) && ( lengthAboutToPoint <= lengthOfLine);
+            return (checkPointNearToLine < accuracy) && ( lengthAboutToPoint <= lengthOfLine/2);
         }
         public bool Contains(Vector2f point)
         {
@@ -207,7 +207,7 @@ namespace Lines
             double lengthOfLine = Dlina(vertex1.Position, vertex2.Position)+accuracy;
             double lengthAboutToPoint = Dlina(point.X, point.Y, vertex1.Position.X, vertex1.Position.Y) + Dlina(point.X, point.Y, vertex2.Position.X, vertex2.Position.Y);
             double checkPointNearToLine = Math.Abs((point.X-vertex1.Position.X)/(vertex2.Position.X-vertex1.Position.X) - (point.Y-vertex1.Position.Y)/(vertex2.Position.Y-vertex1.Position.Y));
-            return (checkPointNearToLine < accuracy) && (lengthAboutToPoint <= lengthOfLine);
+            return (checkPointNearToLine < accuracy) && (lengthAboutToPoint <= lengthOfLine/2);
         }
         public Vector2f GetPosVer1()
         {
@@ -220,18 +220,6 @@ namespace Lines
         public void Draw(RenderTarget target,RenderStates states)
         {
             target.Draw(ToArr(), PrimitiveType.Lines, states);
-            float posXMiddle = ((vertex1.Position.X+vertex2.Position.X)/2);
-            float posYMiddle = ((vertex1.Position.Y+vertex2.Position.Y)/2);
-            bool DifferenceY = vertex1.Position.Y-vertex2.Position.Y<=0;
-            float CosAngle = (float)Angle();
-            float SinAngle = (float)Math.Sqrt(1-CosAngle*CosAngle);
-            Vertex vertexArrMid = new(new(posXMiddle, posYMiddle), Color.Red);
-            Console.WriteLine(DifferenceY);
-            Vertex verUp = new(new(posXMiddle -20*CosAngle, posYMiddle+ (DifferenceY ? -20*SinAngle : +20*SinAngle)) , Color.Red);
-            Vertex verUp2 = new(new( verUp.Position.X +(!DifferenceY? -20*SinAngle : +20*SinAngle) , verUp.Position.Y-20*CosAngle), Color.Red);
-            Vertex verUp3 = new(new(verUp.Position.X -(!DifferenceY ? -20*SinAngle : +20*SinAngle), verUp.Position.Y+20*CosAngle), Color.Red);
-            Vertex[] vertices = new Vertex[3] { verUp2,verUp3,vertexArrMid };
-            target.Draw(vertices, PrimitiveType.Triangles, states);
             target.Draw(weight1);
             //target.Draw(weight2);
         }

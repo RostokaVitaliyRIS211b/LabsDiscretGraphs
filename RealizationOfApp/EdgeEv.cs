@@ -3,7 +3,7 @@ namespace RealizationOfApp
 {
     public class EdgeEv:EventDrawable
     {
-        protected Edge edge;
+        public Edge edge;
         public bool IsNew = false;
         public EdgeEv(Edge edge)
         {

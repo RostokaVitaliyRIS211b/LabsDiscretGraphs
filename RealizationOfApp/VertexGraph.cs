@@ -69,6 +69,8 @@ namespace RealizationOfApp
                 EdgeEv edge = new(new Edge(new(circle.GetPosition(),Color.Black),new(new(e.X,e.Y), Color.Black),"10"));
                 edge.IsNew = true;
                 incindentEdges.Add(edge);
+                Arrow arrow = new(ref edge.edge);
+                app2.eventDrawables.Insert(app2.eventDrawables.Count-1, arrow);
                 app2.eventDrawables.Insert(0,edge);
             }
         }
