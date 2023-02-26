@@ -7,6 +7,7 @@ namespace RealizationOfApp
         protected CircleTextbox circle = new();
         public bool Catched = false;
         public Color BuffColor;
+        public List<EdgeEv> incindentEdges = new();
         public VertexGraph(CircleTextbox circle)
         {
             this.circle = new(circle);
@@ -28,6 +29,17 @@ namespace RealizationOfApp
             }
             else if(IsAlive && Catched)
             {
+                foreach(EdgeEv edge in incindentEdges)
+                {
+                    if(circle.Contains(edge.GetPosVer1()))
+                    {
+                        edge.SetPosVer1(e.X, e.Y);
+                    }
+                    else
+                    {
+                        edge.SetPosVer2(e.X, e.Y);
+                    }
+                }
                 circle.SetPosition(e.X, e.Y);
             }
         }
@@ -54,8 +66,10 @@ namespace RealizationOfApp
             {
                 foreach (EventDrawable drawables in app2.eventDrawables)
                     drawables.IsAlive = false;
-                EdgeEv edge = new(new Edge(new(circle.GetPosition()),new(new(e.X,e.Y)),"10"));
-                app2.eventDrawables.Add(edge);
+                EdgeEv edge = new(new Edge(new(circle.GetPosition(),Color.Black),new(new(e.X,e.Y), Color.Black),"10"));
+                edge.IsNew = true;
+                incindentEdges.Add(edge);
+                app2.eventDrawables.Insert(0,edge);
             }
         }
         public bool Contains(Vector2f vector)
@@ -65,6 +79,19 @@ namespace RealizationOfApp
         public bool Contains(float x,float y)
         {
             return circle.Contains(x, y);
+        }
+        public void SetPos(Vector2f vector)
+        {
+            circle.SetPosition(vector);
+        }
+        public void SetPos(float x,float y)
+        {
+            circle.SetPosition(x,y);
+        }
+        public void SetColor(Color color)
+        {
+            BuffColor = color;
+            circle.SetFillColorCircle(color);
         }
         public Vector2f GetPos()
         {

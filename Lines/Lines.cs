@@ -82,11 +82,11 @@ namespace Lines
 
             this.vertex1 = new(vertex1.Position,vertex1.Color);
             this.vertex2 = new(vertex2.Position, vertex2.Color);
-
-            float posXMiddle = (vertex1.Position.X+vertex2.Position.X-CharacterSize);
-            float posYMiddle = (vertex1.Position.Y+vertex2.Position.Y-CharacterSize);
-
-            weight1.Position = new Vector2f(posXMiddle-posXMiddle/2, posYMiddle-posYMiddle/2);
+            float posXMiddle = ((vertex1.Position.X+vertex2.Position.X-CharacterSize)/2);
+            float posYMiddle = ((vertex1.Position.Y+vertex2.Position.Y-CharacterSize)/2);
+            float DifferenceX = vertex1.Position.X-vertex2.Position.X-CharacterSize;
+            float DifferenceY = vertex1.Position.Y-vertex2.Position.Y-CharacterSize;
+            weight1.Position = new Vector2f(vertex1.Position.X-DifferenceX/4, vertex1.Position.Y-DifferenceY/4);
             //weight2.Position = new Vector2f(posXMiddle+posXMiddle/2, posYMiddle+posYMiddle/2);
         }
         //public Edge(Vertex vertex1, Vertex vertex2, string text1, string text2)
@@ -115,33 +115,41 @@ namespace Lines
         public void SetVertex1(float x,float y)
         {
             vertex1.Position = new Vector2f(x, y);
-            float posXMiddle = (vertex1.Position.X+vertex2.Position.X-CharacterSize);
-            float posYMiddle = (vertex1.Position.Y+vertex2.Position.Y-CharacterSize);
-            weight1.Position = new Vector2f(posXMiddle-posXMiddle/2, posYMiddle-posYMiddle/2);
+            float posXMiddle = ((vertex1.Position.X+vertex2.Position.X-CharacterSize)/2);
+            float posYMiddle = ((vertex1.Position.Y+vertex2.Position.Y-CharacterSize)/2);
+            float DifferenceX = vertex1.Position.X-vertex2.Position.X-CharacterSize;
+            float DifferenceY = vertex1.Position.Y-vertex2.Position.Y-CharacterSize;
+            weight1.Position = new Vector2f(vertex1.Position.X-DifferenceX/4, vertex1.Position.Y-DifferenceY/4);
             //weight2.Position = new Vector2f(posXMiddle+posXMiddle/2, posYMiddle+posYMiddle/2);
         }
         public void SetVertex2(float x, float y)
         {
             vertex2.Position = new Vector2f(x, y);
-            float posXMiddle = (vertex1.Position.X+vertex2.Position.X-CharacterSize);
-            float posYMiddle = (vertex1.Position.Y+vertex2.Position.Y-CharacterSize);
-            weight1.Position = new Vector2f(posXMiddle-posXMiddle/2, posYMiddle-posYMiddle/2);
+            float posXMiddle = ((vertex1.Position.X+vertex2.Position.X-CharacterSize)/2);
+            float posYMiddle = ((vertex1.Position.Y+vertex2.Position.Y-CharacterSize)/2);
+            float DifferenceX = vertex1.Position.X-vertex2.Position.X-CharacterSize;
+            float DifferenceY = vertex1.Position.Y-vertex2.Position.Y-CharacterSize;
+            weight1.Position = new Vector2f(vertex1.Position.X-DifferenceX/4, vertex1.Position.Y-DifferenceY/4);
             //weight2.Position = new Vector2f(posXMiddle+posXMiddle/2, posYMiddle+posYMiddle/2);
         }
         public void SetVertex1(Vector2f vector)
         {
             vertex1.Position = vector;
-            float posXMiddle = (vertex1.Position.X+vertex2.Position.X-CharacterSize);
-            float posYMiddle = (vertex1.Position.Y+vertex2.Position.Y-CharacterSize);
-            weight1.Position = new Vector2f(posXMiddle-posXMiddle/2, posYMiddle-posYMiddle/2);
+            float posXMiddle = ((vertex1.Position.X+vertex2.Position.X-CharacterSize)/2);
+            float posYMiddle = ((vertex1.Position.Y+vertex2.Position.Y-CharacterSize)/2);
+            float DifferenceX = vertex1.Position.X-vertex2.Position.X-CharacterSize;
+            float DifferenceY = vertex1.Position.Y-vertex2.Position.Y-CharacterSize;
+            weight1.Position = new Vector2f(vertex1.Position.X-DifferenceX/4, vertex1.Position.Y-DifferenceY/4);
             //weight2.Position = new Vector2f(posXMiddle+posXMiddle/2, posYMiddle+posYMiddle/2);
         }
         public void SetVertex2(Vector2f vector)
         {
             vertex2.Position = vector;
-            float posXMiddle = (vertex1.Position.X+vertex2.Position.X-CharacterSize);
-            float posYMiddle = (vertex1.Position.Y+vertex2.Position.Y-CharacterSize);
-            weight1.Position = new Vector2f(posXMiddle-posXMiddle/2, posYMiddle-posYMiddle/2);
+            float posXMiddle = ((vertex1.Position.X+vertex2.Position.X-CharacterSize)/2);
+            float posYMiddle = ((vertex1.Position.Y+vertex2.Position.Y-CharacterSize)/2);
+            float DifferenceX = vertex1.Position.X-vertex2.Position.X-CharacterSize;
+            float DifferenceY = vertex1.Position.Y-vertex2.Position.Y-CharacterSize;
+            weight1.Position = new Vector2f(vertex1.Position.X-DifferenceX/4, vertex1.Position.Y-DifferenceY/4);
             //weight2.Position = new Vector2f(posXMiddle+posXMiddle/2, posYMiddle+posYMiddle/2);
         }
         public void SetFont(Font font)
@@ -196,6 +204,14 @@ namespace Lines
             double lengthAboutToPoint = Dlina(point.X, point.Y, vertex1.Position.X, vertex1.Position.Y) + Dlina(point.X, point.Y, vertex2.Position.X, vertex2.Position.Y);
             double checkPointNearToLine = Math.Abs((point.X-vertex1.Position.X)/(vertex2.Position.X-vertex1.Position.X) - (point.Y-vertex1.Position.Y)/(vertex2.Position.Y-vertex1.Position.Y));
             return (checkPointNearToLine < accuracy) && (lengthAboutToPoint <= lengthOfLine);
+        }
+        public Vector2f GetPosVer1()
+        {
+            return vertex1.Position;
+        }
+        public Vector2f GetPosVer2()
+        {
+            return vertex2.Position;
         }
         public void Draw(RenderTarget target,RenderStates states)
         {
