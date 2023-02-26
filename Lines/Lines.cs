@@ -35,6 +35,7 @@ namespace Lines
     public class Edge:Drawable
     {
         protected Vertex vertex1;
+        protected Vertex middleVertex;
         protected Vertex vertex2;
         protected Font font= new Font(Directory.GetCurrentDirectory()+"/ofont.ru_Impact.ttf");
         protected Text weight1;
@@ -145,8 +146,6 @@ namespace Lines
         public void SetVertex2(Vector2f vector)
         {
             vertex2.Position = vector;
-            float posXMiddle = ((vertex1.Position.X+vertex2.Position.X-CharacterSize)/2);
-            float posYMiddle = ((vertex1.Position.Y+vertex2.Position.Y-CharacterSize)/2);
             float DifferenceX = vertex1.Position.X-vertex2.Position.X-CharacterSize;
             float DifferenceY = vertex1.Position.Y-vertex2.Position.Y-CharacterSize;
             weight1.Position = new Vector2f(vertex1.Position.X-DifferenceX/4, vertex1.Position.Y-DifferenceY/4);
@@ -188,7 +187,12 @@ namespace Lines
             Vector2f a = new( x-x1, y-y1 );
             return Math.Acos( ( new VectorFloat(b,a)*new VectorFloat(b,b1)) /(Dlina(a, b)*Dlina(b,b1) ) );
         }
-
+        public double Angle()
+        {
+            Vector2f b = new(6, 720);
+            Vector2f b1 = new(1000, 720);
+            return (new VectorFloat(vertex1.Position,vertex2.Position )*new VectorFloat(b, b1)) /(Dlina(vertex1.Position, vertex2.Position)*Dlina(b, b1));
+        }
         public bool Contains(float x, float y)
         {
             double accuracy = 0.003;
@@ -216,6 +220,18 @@ namespace Lines
         public void Draw(RenderTarget target,RenderStates states)
         {
             target.Draw(ToArr(), PrimitiveType.Lines, states);
+            float posXMiddle = ((vertex1.Position.X+vertex2.Position.X)/2);
+            float posYMiddle = ((vertex1.Position.Y+vertex2.Position.Y)/2);
+            bool DifferenceY = vertex1.Position.Y-vertex2.Position.Y<=0;
+            float CosAngle = (float)Angle();
+            float SinAngle = (float)Math.Sqrt(1-CosAngle*CosAngle);
+            Vertex vertexArrMid = new(new(posXMiddle, posYMiddle), Color.Red);
+            Console.WriteLine(DifferenceY);
+            Vertex verUp = new(new(posXMiddle -20*CosAngle, posYMiddle+ (DifferenceY ? -20*SinAngle : +20*SinAngle)) , Color.Red);
+            Vertex verUp2 = new(new( verUp.Position.X +(!DifferenceY? -20*SinAngle : +20*SinAngle) , verUp.Position.Y-20*CosAngle), Color.Red);
+            Vertex verUp3 = new(new(verUp.Position.X -(!DifferenceY ? -20*SinAngle : +20*SinAngle), verUp.Position.Y+20*CosAngle), Color.Red);
+            Vertex[] vertices = new Vertex[3] { verUp2,verUp3,vertexArrMid };
+            target.Draw(vertices, PrimitiveType.Triangles, states);
             target.Draw(weight1);
             //target.Draw(weight2);
         }
