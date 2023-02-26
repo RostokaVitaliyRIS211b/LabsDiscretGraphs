@@ -8,12 +8,15 @@ namespace RealizationOfApp
         public Edge edge;
         public bool IsNew = false;
         public VertexGraph startVer;
-        public VertexGraph endVer;
+        public VertexGraph? endVer;
+        public Arrow arrow;
         public Color BuffColor;
-        public EdgeEv(Edge edge,VertexGraph start)
+        public EdgeEv(Edge edge,VertexGraph start,ref Arrow arrow)
         {
             this.edge = new(edge);
             BuffColor = edge.GetColor();
+            this.arrow = arrow;
+            arrow.edge=this;
             startVer = start;
         }
         public override void MouseMoved(object? source, MouseMoveEventArgs e)
@@ -56,6 +59,11 @@ namespace RealizationOfApp
             else if(IsAlive && !IsNew && e.Button == Mouse.Button.Right && edge.Contains(e.X,e.Y) && source is Application app2)
             {
                 Console.WriteLine("GA");
+            }
+            else if (IsAlive && !IsNew && e.Button == Mouse.Button.Middle && edge.Contains(e.X, e.Y))
+            {
+                IsNeedToRemove = true;
+                arrow.IsNeedToRemove = true;
             }
         }
         public bool Contains(Vector2f vector)

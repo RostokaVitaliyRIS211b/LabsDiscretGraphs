@@ -30,17 +30,32 @@ namespace RealizationOfApp
             {
                 window.DispatchEvents();
                 window.Clear(Color.White);
-                for(int i=0;i<eventDrawables.Count;++i)
-                {
-                    if (eventDrawables[i].IsNeedToRemove)
-                    {
-                        eventDrawables.RemoveAt(i);
-                        --i;
-                    }
-                }
+                DeleteObjects();
                 foreach (EventDrawable eventDrawable in eventDrawables)
                     window.Draw(eventDrawable);
                 window.Display();
+            }
+        }
+        public void DeleteObjects()
+        {
+            for (int i = 0; i<eventDrawables.Count; ++i)
+            {
+                if (eventDrawables[i].IsNeedToRemove)
+                {
+                    if (eventDrawables[i] is EdgeEv e)
+                    {
+                        if (graph.ContainsName(e.startVer.GetString()) && graph.ContainsName(e.endVer.GetString()))
+                        {
+                            graph[e.startVer.GetString(), e.endVer.GetString()] = 0;
+                        }
+                    }
+                    else if (eventDrawables[i] is VertexGraph v)
+                    {
+                        graph.DeleteVertex(v.GetString());
+                    }
+                    eventDrawables.RemoveAt(i);
+                    --i;
+                }
             }
         }
         public void MouseMoved(object? source, MouseMoveEventArgs e)

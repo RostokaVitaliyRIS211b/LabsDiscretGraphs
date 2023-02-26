@@ -29,15 +29,20 @@ namespace RealizationOfApp
             }
             else if(IsAlive && Catched)
             {
-                foreach(EdgeEv edge in incindentEdges)
+                for(int i=0;i<incindentEdges.Count;++i)
                 {
-                    if(circle.Contains(edge.GetPosVer1()))
+                    if(incindentEdges[i].IsNeedToRemove)
                     {
-                        edge.SetPosVer1(e.X, e.Y);
+                        incindentEdges.RemoveAt(i);
+                        --i;
+                    }
+                    else if (circle.Contains(incindentEdges[i].GetPosVer1()))
+                    {
+                        incindentEdges[i].SetPosVer1(e.X, e.Y);
                     }
                     else
                     {
-                        edge.SetPosVer2(e.X, e.Y);
+                        incindentEdges[i].SetPosVer2(e.X, e.Y);
                     }
                 }
                 circle.SetPosition(e.X, e.Y);
@@ -66,17 +71,21 @@ namespace RealizationOfApp
             {
                 foreach (EventDrawable drawables in app2.eventDrawables)
                     drawables.IsAlive = false;
-                EdgeEv edge = new(new Edge(new(circle.GetPosition(),Color.Black),new(new(e.X,e.Y), Color.Black),"10"),this);
+                Arrow arrow = new();
+                EdgeEv edge = new(new Edge(new(circle.GetPosition(),Color.Black),new(new(e.X,e.Y), Color.Black),"10"),this,ref arrow);
                 edge.IsNew = true;
                 incindentEdges.Add(edge);
-                Arrow arrow = new(ref edge.edge);
                 app2.eventDrawables.Insert(app2.eventDrawables.Count-1, arrow);
                 app2.eventDrawables.Insert(0,edge);
             }
             else if(IsAlive && circle.Contains(e.X, e.Y) && !Catched && e.Button==Mouse.Button.Middle && source is Application app3)
             {
-                foreach (EventDrawable drawables in app3.eventDrawables)
-                    drawables.IsAlive = false;
+                IsNeedToRemove=true;
+                foreach (EdgeEv edgeEv in incindentEdges)
+                {
+                    edgeEv.IsNeedToRemove=true;
+                    edgeEv.arrow.IsNeedToRemove=true;
+                }  
             }
         }
         public bool Contains(Vector2f vector)

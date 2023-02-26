@@ -552,6 +552,10 @@ namespace Graphs
             if (!IsOriented)
                 this[edge.NameTwo, edge.NameOne] = 0;
         }
+        public bool ContainsName(string name)
+        {
+            return names.Contains(name);
+        }
         public record Edge(string NameOne,string NameTwo,int Weight);
     }
 }
