@@ -5,7 +5,7 @@ namespace RealizationOfApp
 {
     public class GUIFactoryA:AbstractGUIFactory
     {
-        public override ICollection<EventDrawableGUI> CreateGUI()
+        public override IList<EventDrawableGUI> CreateGUI()
         {
             List<EventDrawableGUI> drawableGUIs = new();
             Textbox textbox = new();
@@ -19,6 +19,9 @@ namespace RealizationOfApp
             textbox.SetPos(textbox.GetPosition().X+textbox.GetSizeRect().X, textbox.GetSizeRect().Y/2);
             textbox.SetString("Sort");
             drawableGUIs.Add(new ButtonSort(textbox));
+            textbox.SetPos(textbox.GetPosition().X+textbox.GetSizeRect().X, textbox.GetSizeRect().Y/2);
+            textbox.SetString("Deikstra");
+            drawableGUIs.Add(new ButtonDeikstra(textbox));
             return drawableGUIs;
         }
         public override View GetView()

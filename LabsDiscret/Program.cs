@@ -32,13 +32,12 @@ namespace Lines
             //ways = graph.Deikstra("a", out weights);
             //IEnumerator<int> enumerator = weights.GetEnumerator();
             //enumerator.MoveNext();
-            //enumerator.MoveNext();
             //foreach (IEnumerable<string> way in ways)
             //{
             //    bool flag = false;
-            //    foreach(string name in way)
+            //    foreach (string name in way)
             //    {
-            //        Console.Write($"{(flag?" -> ":"")}{name}");
+            //        Console.Write($"{(flag ? " -> " : "")}{name}");
             //        flag = true;
             //    }
             //    Console.WriteLine($" weight of way = {enumerator.Current}");

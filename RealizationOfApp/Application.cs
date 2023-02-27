@@ -1,20 +1,28 @@
 ﻿
 
 using RealizationOfApp.ElementsOfGraph;
+using RealizationOfApp.GUI_Classes;
 
 namespace RealizationOfApp
 {
     public class Application
     {
         public RenderWindow window;
+        public Clock clock = new();
         public Graph graph = new();
         public int LastCount = 0;
+        public bool isRestart = false;
+        public Textbox messageToUser = new();
         public List<List<EventDrawable>> eventDrawablesStates = new();
         public List<EventDrawable> eventDrawables=new();
         public List<IEventHandler> eventHandlers = new();
         public uint CurrentWidth = 1280, CurrentHeight = 720;
         public Application()
         {
+            messageToUser.SetColorText(Color.Black);
+            messageToUser.SetSizeCharacterText(16);
+            messageToUser.SetPos(CurrentWidth/2, CurrentHeight-30);
+            messageToUser.SetString("");
             window = new RenderWindow(new VideoMode(CurrentWidth, CurrentHeight), "Lines");
             eventDrawables.Add(new GUI(new GUIFactoryA()));
             window.SetFramerateLimit(60);
@@ -35,6 +43,7 @@ namespace RealizationOfApp
                 DeleteObjects();
                 foreach (EventDrawable eventDrawable in eventDrawables)
                     window.Draw(eventDrawable);
+                DisplayMessage();
                 window.Display();
                 LastCount = eventDrawables.Count;
             }
@@ -64,7 +73,10 @@ namespace RealizationOfApp
                 }
             }
             if (isBeenDeletes)
+            {
                 ColoringComponentsOfConnection();
+            }
+                
         }
         public void ColoringComponentsOfConnection()
         {
@@ -97,6 +109,24 @@ namespace RealizationOfApp
                 }
            
             }
+        }
+        public void DisplayMessage()
+        {
+            if(!isRestart && messageToUser.GetString()!="")
+            {
+                clock.Restart();
+                isRestart = true;
+            }
+            if(messageToUser.GetString()!="" && clock.ElapsedTime.AsMilliseconds()>8000)
+            {
+                isRestart = false;
+                messageToUser.SetString("");
+            }
+            if(messageToUser.GetString()!="")
+            {
+                window.Draw(messageToUser);
+            }
+
         }
         public void MouseMoved(object? source, MouseMoveEventArgs e)
         {

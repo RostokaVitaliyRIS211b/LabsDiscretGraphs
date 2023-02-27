@@ -11,7 +11,7 @@ namespace RealizationOfApp
         {
             BuffColor = textbox.GetFillRectColor();
         }
-        public override void MouseMoved(object? source, IEnumerable<EventDrawableGUI> elementsOfGUI, MouseMoveEventArgs e)
+        public override void MouseMoved(object? source, ICollection<EventDrawableGUI> elementsOfGUI, MouseMoveEventArgs e)
         {
             if(IsAlive && textbox.Contains(e.X,e.Y))
             {
@@ -22,7 +22,7 @@ namespace RealizationOfApp
                 textbox.SetFillColorRect(BuffColor);
             }
         }
-        public override void MouseButtonPressed(object? source, IEnumerable<EventDrawableGUI> elementsOfGUI, MouseButtonEventArgs e)
+        public override void MouseButtonPressed(object? source, ICollection<EventDrawableGUI> elementsOfGUI, MouseButtonEventArgs e)
         {
             if(IsAlive && source is Application application && textbox.Contains(e.X,e.Y))
             {
@@ -36,7 +36,7 @@ namespace RealizationOfApp
                 application.ColoringComponentsOfConnection();
             }
         }
-        public override void MouseButtonReleased(object? source, IEnumerable<EventDrawableGUI> elementsOfGUI, MouseButtonEventArgs e)
+        public override void MouseButtonReleased(object? source, ICollection<EventDrawableGUI> elementsOfGUI, MouseButtonEventArgs e)
         {
 
         }

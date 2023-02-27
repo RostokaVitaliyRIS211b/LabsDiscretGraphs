@@ -119,6 +119,10 @@
             BuffColor = color;
             circle.SetFillColorCircle(color);
         }
+        public void SetTempCol(Color color)
+        {
+            circle.SetFillColorCircle(color);
+        }
         public void SetName(string name)
         {
             circle.SetString(name);

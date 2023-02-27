@@ -270,6 +270,7 @@ namespace Graphs
                     ways.Add(s);
                 }
             }
+            markOfVertex.RemoveAt(0);
             weightOfWays = markOfVertex;
             return ways;
         }

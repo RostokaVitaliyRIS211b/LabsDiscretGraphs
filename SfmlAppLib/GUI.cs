@@ -4,7 +4,7 @@ namespace SfmlAppLib
     public sealed class GUI:EventDrawable
     {
         public View viewOfGUI;
-        public ICollection<EventDrawableGUI> elementsOfGUI;
+        public IList<EventDrawableGUI> elementsOfGUI;
         public GUI(AbstractGUIFactory factory)
         {
             elementsOfGUI = factory.CreateGUI();
@@ -15,49 +15,75 @@ namespace SfmlAppLib
         {
             if(IsAlive)
             {
-                foreach (EventDrawableGUI x in elementsOfGUI)
-                    x.MouseMoved(source, elementsOfGUI, e);
-            } 
+                for(int i=0;i<elementsOfGUI.Count;++i)
+                {
+                    elementsOfGUI[i].MouseMoved(source, elementsOfGUI, e);
+                }
+            }
+            DeleteObjects();
         }
         public override void MouseButtonPressed(object? source, MouseButtonEventArgs e) 
         {
             if (IsAlive)
             {
-                foreach (EventDrawableGUI x in elementsOfGUI)
-                    x.MouseButtonPressed(source, elementsOfGUI, e);
+                for (int i = 0; i<elementsOfGUI.Count; ++i)
+                {
+                    elementsOfGUI[i].MouseButtonPressed(source, elementsOfGUI, e);
+                }
             }
+            DeleteObjects();
         }
         public override void MouseButtonReleased(object? source, MouseButtonEventArgs e) 
         {
             if (IsAlive)
             {
-                foreach (EventDrawableGUI x in elementsOfGUI)
-                    x.MouseButtonReleased(source, elementsOfGUI, e);
+                for (int i = 0; i<elementsOfGUI.Count; ++i)
+                {
+                    elementsOfGUI[i].MouseButtonReleased(source, elementsOfGUI, e);
+                }
             }
+            DeleteObjects();
         }
         public override void MouseWheelScrolled(object? source, MouseWheelScrollEventArgs e) 
         {
             if (IsAlive)
             {
-                foreach (EventDrawableGUI x in elementsOfGUI)
-                    x.MouseWheelScrolled(source, elementsOfGUI, e);
+                for (int i = 0; i<elementsOfGUI.Count; ++i)
+                {
+                    elementsOfGUI[i].MouseWheelScrolled(source, elementsOfGUI, e);
+                }
             }
+            DeleteObjects();
         }
         public override void KeyPressed(object? source, KeyEventArgs e) 
         {
             if (IsAlive)
             {
-                foreach (EventDrawableGUI x in elementsOfGUI)
-                    x.KeyPressed(source, elementsOfGUI, e);
+                for (int i = 0; i<elementsOfGUI.Count; ++i)
+                {
+                    elementsOfGUI[i].KeyPressed(source, elementsOfGUI, e);
+                }
             }
+            DeleteObjects();
         }
         public override void KeyReleased(object? source, KeyEventArgs e) 
         {
             if (IsAlive)
             {
-                foreach (EventDrawableGUI x in elementsOfGUI)
-                    x.KeyReleased(source, elementsOfGUI, e);
+                for (int i = 0; i<elementsOfGUI.Count; ++i)
+                {
+                    elementsOfGUI[i].KeyReleased(source, elementsOfGUI, e);
+                }
             }
+            DeleteObjects();
+        }
+        public void DeleteObjects()
+        {
+            List<EventDrawableGUI> isNeedRemove = new(from elem in elementsOfGUI
+                                                      where (elem.IsNeedToRemove)
+                                                      select elem);
+            foreach (EventDrawableGUI eventDrawable in isNeedRemove)
+                elementsOfGUI.Remove(eventDrawable);
         }
         public override void Draw(RenderTarget target, RenderStates states) 
         {

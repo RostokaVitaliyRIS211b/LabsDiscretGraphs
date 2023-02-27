@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using RealizationOfApp.ElementsOfGraph;
 
 namespace RealizationOfApp
@@ -32,8 +29,16 @@ namespace RealizationOfApp
             {
                 IsAlive = false;
                 string oldName = vertex.GetString(),newName = textbox.GetString()=="" || textbox.GetString() is null ? VertexGraph.Counter.ToString():textbox.GetString();
-                vertex.SetName(newName);
-                app.graph.ChangeName(oldName, newName);
+                if (!app.graph.ContainsName(newName))
+                {
+                    vertex.SetName(newName);
+                    app.graph.ChangeName(oldName, newName);
+                }
+                else
+                {
+                    app.messageToUser.SetString("This name already exists in graph");
+                    Console.WriteLine("This name already exists in graph");
+                }
                 foreach (EventDrawable ev in app.eventDrawables)
                     ev.IsAlive=true;
                 IsNeedToRemove = true;
