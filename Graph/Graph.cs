@@ -562,6 +562,18 @@ namespace Graphs
                 throw new Exception("This name does not exists");
             names[names.IndexOf(oldName)]=newName;
         }
+        public bool IsOneDirected()
+        {
+            bool flag = true;
+            for(int i=0;i<names.Count && flag;++i)
+            {
+                for(int j=i;j<names.Count && flag;++j)
+                {
+                    flag = !(matrix[i, j]!=0 && matrix[j, i]!=0);
+                }
+            }
+            return flag;
+        }
         public record Edge(string NameOne,string NameTwo,int Weight);
     }
 }

@@ -27,23 +27,7 @@
             }
             else if (IsAlive && Catched)
             {
-                for (int i = 0; i < incindentEdges.Count; ++i)
-                {
-                    if (incindentEdges[i].IsNeedToRemove)
-                    {
-                        incindentEdges.RemoveAt(i);
-                        --i;
-                    }
-                    else if (circle.Contains(incindentEdges[i].GetPosVer1()))
-                    {
-                        incindentEdges[i].SetPosVer1(e.X, e.Y);
-                    }
-                    else
-                    {
-                        incindentEdges[i].SetPosVer2(e.X, e.Y);
-                    }
-                }
-                circle.SetPosition(e.X, e.Y);
+                SetPos(e.X, e.Y);
             }
         }
         public override void MouseButtonReleased(object? source, MouseButtonEventArgs e)
@@ -70,7 +54,7 @@
                 foreach (EventDrawable drawables in app2.eventDrawables)
                     drawables.IsAlive = false;
                 Arrow arrow = new();
-                EdgeEv edge = new(new Edge(new(circle.GetPosition(), Color.Black), new(new(e.X, e.Y), Color.Black), "10"), this, ref arrow);
+                EdgeEv edge = new(new Edge(new(circle.GetPosition(), Color.Black), new(new(e.X, e.Y), Color.Black), "1"), this, ref arrow);
                 edge.IsNew = true;
                 incindentEdges.Add(edge);
                 app2.eventDrawables.Insert(app2.eventDrawables.Count - 1, arrow);
@@ -108,10 +92,26 @@
         }
         public void SetPos(Vector2f vector)
         {
-            circle.SetPosition(vector);
+            SetPos(vector.X, vector.Y);
         }
         public void SetPos(float x, float y)
         {
+            for (int i = 0; i < incindentEdges.Count; ++i)
+            {
+                if (incindentEdges[i].IsNeedToRemove)
+                {
+                    incindentEdges.RemoveAt(i);
+                    --i;
+                }
+                else if (circle.Contains(incindentEdges[i].GetPosVer1()))
+                {
+                    incindentEdges[i].SetPosVer1(x, y);
+                }
+                else
+                {
+                    incindentEdges[i].SetPosVer2(x, y);
+                }
+            }
             circle.SetPosition(x, y);
         }
         public void SetColor(Color color)
