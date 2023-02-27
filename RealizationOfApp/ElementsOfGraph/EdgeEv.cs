@@ -1,8 +1,5 @@
 ﻿
 
-using Microsoft.VisualBasic;
-using SFML.Graphics;
-
 namespace RealizationOfApp.ElementsOfGraph
 {
     public class EdgeEv : EventDrawable
@@ -10,7 +7,7 @@ namespace RealizationOfApp.ElementsOfGraph
         public Edge edge;
         public bool IsNew = false;
         public VertexGraph startVer;
-        public VertexGraph? endVer;
+        public VertexGraph endVer;
         public Arrow arrow;
         public Color BuffColor;
         public EdgeEv(Edge edge, VertexGraph start, ref Arrow arrow)
@@ -56,7 +53,7 @@ namespace RealizationOfApp.ElementsOfGraph
                             if(app.graph[vertex.GetString(), startVer.GetString()]>0)
                             {
                                 edge.isOriented=false;
-                                startVer.incindentEdges.Find(x => x.endVer==startVer).edge.isOriented=false;
+                                startVer.incindentEdges.Find(x => x.endVer==startVer && x.startVer==endVer).edge.isOriented=false;
                             }
                             app.ColoringComponentsOfConnection();
                             break;
@@ -76,7 +73,7 @@ namespace RealizationOfApp.ElementsOfGraph
                 arrow.IsNeedToRemove = true;
                 if (app3.graph[endVer.GetString(), startVer.GetString()]>0)
                 {
-                    startVer.incindentEdges.Find(x => x.endVer==startVer).edge.isOriented=true;
+                    startVer.incindentEdges.Find(x => x.endVer==startVer && x.startVer==endVer).edge.isOriented=true;
                 }
             }
         }
@@ -107,6 +104,10 @@ namespace RealizationOfApp.ElementsOfGraph
         public void SetWeight(int weight)
         {
             edge.SetWeight1(weight.ToString());
+        }
+        public void SetTempColor(Color color)
+        {
+            edge.SetColor(color);
         }
         public override void Draw(RenderTarget target, RenderStates states)
         {

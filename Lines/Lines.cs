@@ -192,6 +192,8 @@ namespace Lines
         public void SetColor(Color color)
         {
             vertex1.Color = color;
+            middleVertex.Color = color;
+            vertex2.Color = color;
         }
         public Color GetColor()
         {

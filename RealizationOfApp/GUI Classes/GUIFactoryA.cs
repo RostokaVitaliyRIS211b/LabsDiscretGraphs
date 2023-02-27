@@ -25,6 +25,9 @@ namespace RealizationOfApp
             textbox.SetPos(textbox.GetPosition().X+textbox.GetSizeRect().X, textbox.GetSizeRect().Y/2);
             textbox.SetString("MaxClick");
             drawableGUIs.Add(new ButtonClikaGraph(textbox));
+            textbox.SetPos(textbox.GetPosition().X+textbox.GetSizeRect().X, textbox.GetSizeRect().Y/2);
+            textbox.SetString("Ostov");
+            drawableGUIs.Add(new ButtonOstov(textbox));
             return drawableGUIs;
         }
         public override View GetView()
