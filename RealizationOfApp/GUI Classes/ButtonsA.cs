@@ -1,6 +1,4 @@
-﻿
-
-using RealizationOfApp.ElementsOfGraph;
+﻿using RealizationOfApp.ElementsOfGraph;
 
 namespace RealizationOfApp
 {

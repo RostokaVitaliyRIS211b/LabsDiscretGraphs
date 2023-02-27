@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using RealizationOfApp.ElementsOfGraph;
+﻿using RealizationOfApp.ElementsOfGraph;
 
 namespace RealizationOfApp
 {

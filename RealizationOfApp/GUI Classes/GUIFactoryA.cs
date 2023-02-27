@@ -1,5 +1,4 @@
-﻿
-using RealizationOfApp.GUI_Classes;
+﻿using RealizationOfApp.GUI_Classes;
 
 namespace RealizationOfApp
 {
@@ -10,7 +9,9 @@ namespace RealizationOfApp
             List<EventDrawableGUI> drawableGUIs = new();
             Textbox textbox = new();
             textbox.SetSizeRect(200, 65);
-            textbox.SetFillColorRect(new Color(240,152,4));
+            textbox.SetOutlineColorRect(Color.Black);
+            textbox.SetOutlineThicknessRect(2);
+            textbox.SetFillColorRect(new Color(133,253,251));
             textbox.SetColorText(Color.Black);
             textbox.SetSizeCharacterText(16);
             textbox.SetString("Add");
@@ -28,6 +29,9 @@ namespace RealizationOfApp
             textbox.SetPos(textbox.GetPosition().X+textbox.GetSizeRect().X, textbox.GetSizeRect().Y/2);
             textbox.SetString("Ostov");
             drawableGUIs.Add(new ButtonOstov(textbox));
+            textbox.SetPos(textbox.GetPosition().X+textbox.GetSizeRect().X, textbox.GetSizeRect().Y/2);
+            textbox.SetString("Oriented");
+            drawableGUIs.Add(new ButtonOriented(textbox));
             return drawableGUIs;
         }
         public override View GetView()

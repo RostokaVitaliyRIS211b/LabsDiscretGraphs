@@ -11,7 +11,8 @@ namespace RealizationOfApp
         public Clock clock = new();
         public Graph graph = new();
         public int LastCount = 0;
-        public bool isRestart = false;
+        public bool IsRestart = false;
+        public bool IsOriented = true;
         public Textbox messageToUser = new();
         public List<List<EventDrawable>> eventDrawablesStates = new();
         public List<EventDrawable> eventDrawables=new();
@@ -39,7 +40,7 @@ namespace RealizationOfApp
             while (window.IsOpen)
             {
                 window.DispatchEvents();
-                window.Clear(Color.White);
+                window.Clear(new(236,253,230));
                 DeleteObjects();
                 foreach (EventDrawable eventDrawable in eventDrawables)
                     window.Draw(eventDrawable);
@@ -112,14 +113,14 @@ namespace RealizationOfApp
         }
         public void DisplayMessage()
         {
-            if(!isRestart && messageToUser.GetString()!="")
+            if(!IsRestart && messageToUser.GetString()!="")
             {
                 clock.Restart();
-                isRestart = true;
+                IsRestart = true;
             }
             if(messageToUser.GetString()!="" && clock.ElapsedTime.AsMilliseconds()>8000)
             {
-                isRestart = false;
+                IsRestart = false;
                 messageToUser.SetString("");
             }
             if(messageToUser.GetString()!="")

@@ -1,10 +1,4 @@
 ﻿using RealizationOfApp.ElementsOfGraph;
-using SFML.System;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RealizationOfApp
 {
@@ -37,6 +31,14 @@ namespace RealizationOfApp
                     weight = 1;
                 edge.SetWeight(weight);
                 app.graph[edge.startVer.GetString(), edge.endVer.GetString()]=weight;
+                if(!app.IsOriented)
+                {
+                    EdgeEv? edgeEv = edge.startVer.incindentEdges.Find(x => x.endVer==edge.startVer && x.startVer==edge.endVer);
+                    if(edgeEv is not null)
+                    {
+                        edgeEv.SetWeight(weight);
+                    }
+                }
                 foreach (EventDrawable ev in app.eventDrawables)
                     ev.IsAlive=true;
                 IsNeedToRemove = true;

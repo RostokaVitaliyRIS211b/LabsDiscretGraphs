@@ -1,6 +1,4 @@
-﻿
-using RealizationOfApp.ElementsOfGraph;
-using SfmlAppLib;
+﻿using RealizationOfApp.ElementsOfGraph;
 
 namespace RealizationOfApp.GUI_Classes
 {

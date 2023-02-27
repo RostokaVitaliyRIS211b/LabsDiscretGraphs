@@ -18,6 +18,15 @@ namespace RealizationOfApp.ElementsOfGraph
             arrow.edge = this;
             startVer = start;
         }
+        public EdgeEv(Edge edge, VertexGraph start,VertexGraph end, ref Arrow arrow)
+        {
+            this.edge = new(edge);
+            BuffColor = edge.GetColor();
+            this.arrow = arrow;
+            arrow.edge = this;
+            startVer = start;
+            endVer = end;
+        }
         public override void MouseMoved(object? source, MouseMoveEventArgs e)
         {
             if (IsAlive && IsNew && source is Application app)
@@ -50,10 +59,22 @@ namespace RealizationOfApp.ElementsOfGraph
                             foreach (EventDrawable eventDrawable1 in app.eventDrawables)
                                 eventDrawable1.IsAlive = true;
                             app.graph[startVer.GetString(), vertex.GetString()] = int.Parse(edge.GetWeight());
-                            if(app.graph[vertex.GetString(), startVer.GetString()]>0)
+                            EdgeEv? ev = startVer.incindentEdges.Find(x => x.endVer==startVer && x.startVer==endVer);
+                            if (app.IsOriented && app.graph[vertex.GetString(), startVer.GetString()]>0 && ev is not null)
                             {
-                                edge.isOriented=false;
-                                startVer.incindentEdges.Find(x => x.endVer==startVer && x.startVer==endVer).edge.isOriented=false;
+                                ev.edge.isOriented=false;
+                                edge.isOriented = false;
+                            }
+                            else if(!app.IsOriented)
+                            {
+                                this.edge.isOriented=false;
+                                Arrow arrow = new();
+                                EdgeEv edge3 = new(new Edge(new(endVer.GetPos(), Color.Black), new(startVer.GetPos(), Color.Black), "1"), endVer,startVer,ref arrow);
+                                edge3.edge.isOriented = false;
+                                startVer.incindentEdges.Add(edge3);
+                                endVer.incindentEdges.Add(edge3);
+                                app.eventDrawables.Insert(app.eventDrawables.Count - 1, arrow);
+                                app.eventDrawables.Insert(0, edge3);
                             }
                             app.ColoringComponentsOfConnection();
                             break;
@@ -71,9 +92,18 @@ namespace RealizationOfApp.ElementsOfGraph
             {
                 IsNeedToRemove = true;
                 arrow.IsNeedToRemove = true;
-                if (app3.graph[endVer.GetString(), startVer.GetString()]>0)
+                if (app3.graph[endVer.GetString(), startVer.GetString()]>0 && app3.IsOriented)
                 {
                     startVer.incindentEdges.Find(x => x.endVer==startVer && x.startVer==endVer).edge.isOriented=true;
+                }
+                if(!app3.IsOriented)
+                {
+                    EdgeEv? edgeEv = startVer.incindentEdges.Find(x => x.endVer==startVer && x.startVer==endVer);
+                    if(edgeEv is not null)
+                    {
+                        edgeEv.IsNeedToRemove = true;
+                        edgeEv.arrow.IsNeedToRemove = true;
+                    }
                 }
             }
         }

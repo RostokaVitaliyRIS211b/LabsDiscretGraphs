@@ -1,7 +1,4 @@
-﻿
-
-using RealizationOfApp.ElementsOfGraph;
-using System.Security.Cryptography.X509Certificates;
+﻿using RealizationOfApp.ElementsOfGraph;
 
 namespace RealizationOfApp.GUI_Classes
 {
