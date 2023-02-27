@@ -39,6 +39,7 @@ namespace Lines
         protected Vertex vertex2;
         protected Font font= new Font(Directory.GetCurrentDirectory()+"/ofont.ru_Impact.ttf");
         protected Text weight1;
+        public bool isOriented = true;
         //protected Text weight2;
         protected readonly uint CharacterSize = 15;
         public Edge()
@@ -56,6 +57,7 @@ namespace Lines
         {
             vertex1 = edge.vertex1;
             vertex2 = edge.vertex2;
+            middleVertex = edge.middleVertex;
             font = edge.font;
             weight1 = new(edge.weight1);
             //weight2 = new(edge.weight2);
@@ -83,8 +85,9 @@ namespace Lines
 
             this.vertex1 = new(vertex1.Position,vertex1.Color);
             this.vertex2 = new(vertex2.Position, vertex2.Color);
-            float posXMiddle = ((vertex1.Position.X+vertex2.Position.X-CharacterSize)/2);
-            float posYMiddle = ((vertex1.Position.Y+vertex2.Position.Y-CharacterSize)/2);
+            float posXMiddle = ((vertex1.Position.X+vertex2.Position.X)/2);
+            float posYMiddle = ((vertex1.Position.Y+vertex2.Position.Y)/2);
+            middleVertex = new(new(posXMiddle, posYMiddle), Color.Black);
             float DifferenceX = vertex1.Position.X-vertex2.Position.X-CharacterSize;
             float DifferenceY = vertex1.Position.Y-vertex2.Position.Y-CharacterSize;
             weight1.Position = new Vector2f(vertex1.Position.X-DifferenceX/4, vertex1.Position.Y-DifferenceY/4);
@@ -116,8 +119,9 @@ namespace Lines
         public void SetVertex1(float x,float y)
         {
             vertex1.Position = new Vector2f(x, y);
-            float posXMiddle = ((vertex1.Position.X+vertex2.Position.X-CharacterSize)/2);
-            float posYMiddle = ((vertex1.Position.Y+vertex2.Position.Y-CharacterSize)/2);
+            float posXMiddle = ((vertex1.Position.X+vertex2.Position.X)/2);
+            float posYMiddle = ((vertex1.Position.Y+vertex2.Position.Y)/2);
+            middleVertex.Position = new(posXMiddle, posYMiddle);
             float DifferenceX = vertex1.Position.X-vertex2.Position.X-CharacterSize;
             float DifferenceY = vertex1.Position.Y-vertex2.Position.Y-CharacterSize;
             weight1.Position = new Vector2f(vertex1.Position.X-DifferenceX/4, vertex1.Position.Y-DifferenceY/4);
@@ -126,8 +130,9 @@ namespace Lines
         public void SetVertex2(float x, float y)
         {
             vertex2.Position = new Vector2f(x, y);
-            float posXMiddle = ((vertex1.Position.X+vertex2.Position.X-CharacterSize)/2);
-            float posYMiddle = ((vertex1.Position.Y+vertex2.Position.Y-CharacterSize)/2);
+            float posXMiddle = ((vertex1.Position.X+vertex2.Position.X)/2);
+            float posYMiddle = ((vertex1.Position.Y+vertex2.Position.Y)/2);
+            middleVertex.Position = new(posXMiddle, posYMiddle);
             float DifferenceX = vertex1.Position.X-vertex2.Position.X-CharacterSize;
             float DifferenceY = vertex1.Position.Y-vertex2.Position.Y-CharacterSize;
             weight1.Position = new Vector2f(vertex1.Position.X-DifferenceX/4, vertex1.Position.Y-DifferenceY/4);
@@ -136,7 +141,9 @@ namespace Lines
         public void SetVertex1(Vector2f vector)
         {
             vertex1.Position = vector;
-           
+            float posXMiddle = ((vertex1.Position.X+vertex2.Position.X)/2);
+            float posYMiddle = ((vertex1.Position.Y+vertex2.Position.Y)/2);
+            middleVertex.Position = new(posXMiddle, posYMiddle);
             float DifferenceX = vertex1.Position.X-vertex2.Position.X-CharacterSize;
             float DifferenceY = vertex1.Position.Y-vertex2.Position.Y-CharacterSize;
             weight1.Position = new Vector2f(vertex1.Position.X-DifferenceX/4, vertex1.Position.Y-DifferenceY/4);
@@ -145,6 +152,9 @@ namespace Lines
         public void SetVertex2(Vector2f vector)
         {
             vertex2.Position = vector;
+            float posXMiddle = ((vertex1.Position.X+vertex2.Position.X)/2);
+            float posYMiddle = ((vertex1.Position.Y+vertex2.Position.Y)/2);
+            middleVertex.Position = new(posXMiddle, posYMiddle);
             float DifferenceX = vertex1.Position.X-vertex2.Position.X-CharacterSize;
             float DifferenceY = vertex1.Position.Y-vertex2.Position.Y-CharacterSize;
             weight1.Position = new Vector2f(vertex1.Position.X-DifferenceX/4, vertex1.Position.Y-DifferenceY/4);
@@ -244,7 +254,7 @@ namespace Lines
         }
         public Vertex[] ToArr()
         {
-            return new Vertex[2] { vertex1,vertex2 };
+            return new Vertex[2] { vertex1,isOriented?vertex2:middleVertex};
         }
     }
 }

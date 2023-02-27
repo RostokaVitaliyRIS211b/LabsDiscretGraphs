@@ -1,6 +1,7 @@
 ﻿
 
 using Microsoft.VisualBasic;
+using SFML.Graphics;
 
 namespace RealizationOfApp.ElementsOfGraph
 {
@@ -52,6 +53,11 @@ namespace RealizationOfApp.ElementsOfGraph
                             foreach (EventDrawable eventDrawable1 in app.eventDrawables)
                                 eventDrawable1.IsAlive = true;
                             app.graph[startVer.GetString(), vertex.GetString()] = int.Parse(edge.GetWeight());
+                            if(app.graph[vertex.GetString(), startVer.GetString()]>0)
+                            {
+                                edge.isOriented=false;
+                                startVer.incindentEdges.Find(x => x.endVer==startVer).edge.isOriented=false;
+                            }
                             app.ColoringComponentsOfConnection();
                             break;
                         }
@@ -64,10 +70,14 @@ namespace RealizationOfApp.ElementsOfGraph
                     ev.IsAlive = false;
                 app2.eventDrawables.Add(new EnterTextEdge(edge.GetWeightPosition(), this));
             }
-            else if (IsAlive && !IsNew && e.Button == Mouse.Button.Middle && edge.Contains(e.X, e.Y))
+            else if (IsAlive && !IsNew && e.Button == Mouse.Button.Middle && edge.Contains(e.X, e.Y) && source is Application app3)
             {
                 IsNeedToRemove = true;
                 arrow.IsNeedToRemove = true;
+                if (app3.graph[endVer.GetString(), startVer.GetString()]>0)
+                {
+                    startVer.incindentEdges.Find(x => x.endVer==startVer).edge.isOriented=true;
+                }
             }
         }
         public bool Contains(Vector2f vector)

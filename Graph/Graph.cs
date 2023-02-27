@@ -300,33 +300,42 @@ namespace Graphs
             }
             #endregion
             #region ConvertToDNF
-            while (bytes.Count!=1)
+            if(bytes.Count!=0)
             {
-                bytes.Add(new List<int>());
-                foreach(int i in bytes[0])
+                while (bytes.Count!=1)
                 {
-                    foreach(int j in bytes[1])
+                    bytes.Add(new List<int>());
+                    foreach (int i in bytes[0])
                     {
-                        bytes[bytes.Count-1].Add(i|j);
-                    }
-                }
-                bytes.RemoveAt(0);
-                bytes.RemoveAt(0);
-                List<int> currColl = bytes[bytes.Count-1];
-                for (int i = 0;i < currColl.Count;++i)
-                {
-                    int currNum = currColl[i];
-                    for (int j = 0; j < currColl.Count; ++j)
-                    {
-                        if ((currNum & currColl[j]) == currNum  &&  currNum != currColl[j])
+                        foreach (int j in bytes[1])
                         {
-                            currColl.RemoveAt(j);
-                            i = j<i ? --i : i;
-                            --j;
+                            bytes[bytes.Count-1].Add(i|j);
+                        }
+                    }
+                    bytes.RemoveAt(0);
+                    bytes.RemoveAt(0);
+                    List<int> currColl = bytes[bytes.Count-1];
+                    for (int i = 0; i < currColl.Count; ++i)
+                    {
+                        int currNum = currColl[i];
+                        for (int j = 0; j < currColl.Count; ++j)
+                        {
+                            if ((currNum & currColl[j]) == currNum  &&  currNum != currColl[j])
+                            {
+                                currColl.RemoveAt(j);
+                                i = j<i ? --i : i;
+                                --j;
+                            }
                         }
                     }
                 }
             }
+            else
+            {
+                bytes.Add(new(new int[1] { 0 }));
+            }
+
+           
             #endregion
             #region InitSets
             foreach (int konjunct in bytes[0])
@@ -398,6 +407,18 @@ namespace Graphs
                 for (int j = 0; j<names.Count && flag; ++j)
                 {
                     flag = i==j || matrixReach[i, j]>0;
+                }
+            }
+            return flag;
+        }
+        public bool isNotOriented()
+        {
+            bool flag = true;
+            for (int i = 0; i<names.Count && flag; ++i)
+            {
+                for (int j = i; j<names.Count && flag; ++j)
+                {
+                    flag = (matrix[i, j]!=0 && matrix[j, i]!=0) || (matrix[i, j]==matrix[j, i]);
                 }
             }
             return flag;

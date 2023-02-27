@@ -11,6 +11,11 @@ namespace SfmlAppLib
             viewOfGUI = factory.GetView();
             IsAlive = factory.GetState();
         }
+        GUI(IList<EventDrawableGUI> drawableGUIs)
+        {
+            viewOfGUI = new();
+            elementsOfGUI = drawableGUIs;
+        }
         public override void MouseMoved(object? source, MouseMoveEventArgs e) 
         {
             if(IsAlive)
