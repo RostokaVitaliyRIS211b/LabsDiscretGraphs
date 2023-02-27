@@ -1,11 +1,14 @@
 ﻿
 
+using RealizationOfApp.ElementsOfGraph;
+
 namespace RealizationOfApp
 {
     public class Application
     {
         public RenderWindow window;
         public Graph graph = new();
+        public int LastCount = 0;
         public List<List<EventDrawable>> eventDrawablesStates = new();
         public List<EventDrawable> eventDrawables=new();
         public List<IEventHandler> eventHandlers = new();
@@ -33,10 +36,12 @@ namespace RealizationOfApp
                 foreach (EventDrawable eventDrawable in eventDrawables)
                     window.Draw(eventDrawable);
                 window.Display();
+                LastCount = eventDrawables.Count;
             }
         }
         public void DeleteObjects()
         {
+            bool isBeenDeletes = false;
             for (int i = 0; i<eventDrawables.Count; ++i)
             {
                 if (eventDrawables[i].IsNeedToRemove)
@@ -46,15 +51,51 @@ namespace RealizationOfApp
                         if (graph.ContainsName(e.startVer.GetString()) && graph.ContainsName(e.endVer.GetString()))
                         {
                             graph[e.startVer.GetString(), e.endVer.GetString()] = 0;
+                            isBeenDeletes = true;
                         }
                     }
                     else if (eventDrawables[i] is VertexGraph v)
                     {
                         graph.DeleteVertex(v.GetString());
+                        isBeenDeletes = true;
                     }
                     eventDrawables.RemoveAt(i);
                     --i;
                 }
+            }
+            if (isBeenDeletes)
+                ColoringComponentsOfConnection();
+        }
+        public void ColoringComponentsOfConnection()
+        {
+            Color first = Color.Red, second = Color.Green;
+            int i = 0;
+            List<VertexGraph> vertexes = new(from elem in eventDrawables
+                                             where (elem is VertexGraph)
+                                             let ver = elem as VertexGraph
+                                             select ver);
+            if(vertexes.Count!=0)
+            {
+                IEnumerable<IEnumerable<string>> components = graph.GetComponentsOfConnection();
+
+                foreach (IEnumerable<string> names in components)
+                {
+                    Color currentColor = Color.Transparent;
+                    if (i<2)
+                    {
+                        currentColor = i==0 ? first : second;
+                    }
+                    else
+                    {
+                        currentColor = ColorInterpolator.InterpolateBetween(first, second, Randic.random.NextDouble());
+                    }
+                    foreach (string name in names)
+                    {
+                        vertexes.Find(x => x.GetString()==name)?.SetColor(currentColor);
+                    }
+                    ++i;
+                }
+           
             }
         }
         public void MouseMoved(object? source, MouseMoveEventArgs e)

@@ -1,7 +1,6 @@
-﻿    
-namespace RealizationOfApp
+﻿namespace RealizationOfApp.ElementsOfGraph
 {
-    public class VertexGraph:EventDrawable
+    public class VertexGraph : EventDrawable
     {
         public static int Counter { get; protected set; } = 0;
         protected CircleTextbox circle = new();
@@ -11,27 +10,26 @@ namespace RealizationOfApp
         public VertexGraph(CircleTextbox circle)
         {
             this.circle = new(circle);
-            if (circle.GetString()=="")
+            if (circle.GetString() == "")
                 circle.SetString(Counter.ToString());
             ++Counter;
-
             BuffColor = circle.GetFillColorCircle();
         }
         public override void MouseMoved(object? source, MouseMoveEventArgs e)
         {
-            if(IsAlive && !Catched && circle.Contains(e.X,e.Y))
+            if (IsAlive && !Catched && circle.Contains(e.X, e.Y))
             {
                 circle.SetFillColorCircle(Color.Magenta);
             }
-            else if(IsAlive && !Catched)
+            else if (IsAlive && !Catched)
             {
                 circle.SetFillColorCircle(BuffColor);
             }
-            else if(IsAlive && Catched)
+            else if (IsAlive && Catched)
             {
-                for(int i=0;i<incindentEdges.Count;++i)
+                for (int i = 0; i < incindentEdges.Count; ++i)
                 {
-                    if(incindentEdges[i].IsNeedToRemove)
+                    if (incindentEdges[i].IsNeedToRemove)
                     {
                         incindentEdges.RemoveAt(i);
                         --i;
@@ -50,7 +48,7 @@ namespace RealizationOfApp
         }
         public override void MouseButtonReleased(object? source, MouseButtonEventArgs e)
         {
-            if (IsAlive && Catched  && source is Application app)
+            if (IsAlive && Catched && source is Application app)
             {
                 Catched = false;
                 foreach (EventDrawable drawables in app.eventDrawables)
@@ -59,7 +57,7 @@ namespace RealizationOfApp
         }
         public override void MouseButtonPressed(object? source, MouseButtonEventArgs e)
         {
-            if(IsAlive && circle.Contains(e.X,e.Y) && e.Button==Mouse.Button.Left && source is Application app)
+            if (IsAlive && circle.Contains(e.X, e.Y) && e.Button == Mouse.Button.Left && source is Application app)
             {
                 Catched = true;
                 foreach (EventDrawable drawables in app.eventDrawables)
@@ -67,32 +65,32 @@ namespace RealizationOfApp
                 IsAlive = true;
                 circle.SetPosition(e.X, e.Y);
             }
-            else if(IsAlive && circle.Contains(e.X, e.Y) && !Catched && e.Button==Mouse.Button.Right && source is Application app2)
+            else if (IsAlive && circle.Contains(e.X, e.Y) && !Catched && e.Button == Mouse.Button.Right && source is Application app2)
             {
                 foreach (EventDrawable drawables in app2.eventDrawables)
                     drawables.IsAlive = false;
                 Arrow arrow = new();
-                EdgeEv edge = new(new Edge(new(circle.GetPosition(),Color.Black),new(new(e.X,e.Y), Color.Black),"10"),this,ref arrow);
+                EdgeEv edge = new(new Edge(new(circle.GetPosition(), Color.Black), new(new(e.X, e.Y), Color.Black), "10"), this, ref arrow);
                 edge.IsNew = true;
                 incindentEdges.Add(edge);
-                app2.eventDrawables.Insert(app2.eventDrawables.Count-1, arrow);
-                app2.eventDrawables.Insert(0,edge);
+                app2.eventDrawables.Insert(app2.eventDrawables.Count - 1, arrow);
+                app2.eventDrawables.Insert(0, edge);
             }
-            else if(IsAlive && circle.Contains(e.X, e.Y) && !Catched && e.Button==Mouse.Button.Middle && source is Application app3)
+            else if (IsAlive && circle.Contains(e.X, e.Y) && !Catched && e.Button == Mouse.Button.Middle && source is Application app3)
             {
-                IsNeedToRemove=true;
+                IsNeedToRemove = true;
                 foreach (EdgeEv edgeEv in incindentEdges)
                 {
-                    edgeEv.IsNeedToRemove=true;
-                    edgeEv.arrow.IsNeedToRemove=true;
-                }  
+                    edgeEv.IsNeedToRemove = true;
+                    edgeEv.arrow.IsNeedToRemove = true;
+                }
             }
         }
         public override void KeyPressed(object? source, KeyEventArgs e)
         {
-            if(IsAlive && source is Application application)
+            if (IsAlive && source is Application application)
             {
-                if(e.Code==Keyboard.Key.N && circle.Contains(Mouse.GetPosition(application.window)))
+                if (e.Code == Keyboard.Key.N && circle.Contains(Mouse.GetPosition(application.window)))
                 {
                     foreach (EventDrawable drawables in application.eventDrawables)
                         drawables.IsAlive = false;
@@ -104,7 +102,7 @@ namespace RealizationOfApp
         {
             return circle.Contains(vector);
         }
-        public bool Contains(float x,float y)
+        public bool Contains(float x, float y)
         {
             return circle.Contains(x, y);
         }
@@ -112,9 +110,9 @@ namespace RealizationOfApp
         {
             circle.SetPosition(vector);
         }
-        public void SetPos(float x,float y)
+        public void SetPos(float x, float y)
         {
-            circle.SetPosition(x,y);
+            circle.SetPosition(x, y);
         }
         public void SetColor(Color color)
         {

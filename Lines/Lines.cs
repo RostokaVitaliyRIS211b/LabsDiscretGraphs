@@ -136,8 +136,7 @@ namespace Lines
         public void SetVertex1(Vector2f vector)
         {
             vertex1.Position = vector;
-            float posXMiddle = ((vertex1.Position.X+vertex2.Position.X-CharacterSize)/2);
-            float posYMiddle = ((vertex1.Position.Y+vertex2.Position.Y-CharacterSize)/2);
+           
             float DifferenceX = vertex1.Position.X-vertex2.Position.X-CharacterSize;
             float DifferenceY = vertex1.Position.Y-vertex2.Position.Y-CharacterSize;
             weight1.Position = new Vector2f(vertex1.Position.X-DifferenceX/4, vertex1.Position.Y-DifferenceY/4);
@@ -209,23 +208,17 @@ namespace Lines
                 accuracy = 0.15;
             if (angle>0.9999 || (angle<0.010 && angle>-0.011) || (angle<-0.9999))
                 accuracy = 2;
+            float posXMiddle = ((vertex1.Position.X+vertex2.Position.X)/2);
+            float posYMiddle = ((vertex1.Position.Y+vertex2.Position.Y)/2);
             double lengthOfLine = Dlina(vertex1.Position, vertex2.Position)+accuracy;
             double lengthAboutToPoint = Dlina(x, y, vertex1.Position.X, vertex1.Position.Y);
+            double lengthAboutToPoint2 = Dlina(x, y, posXMiddle, posYMiddle);
             double checkPointNearToLine = Math.Abs((x-vertex1.Position.X)/(vertex2.Position.X-vertex1.Position.X) - (y-vertex1.Position.Y)/(vertex2.Position.Y-vertex1.Position.Y));
-            return (checkPointNearToLine < accuracy) && ( lengthAboutToPoint <= lengthOfLine/2);
+            return (checkPointNearToLine < accuracy) && ( lengthAboutToPoint <= lengthOfLine/2) && (lengthAboutToPoint2 <= lengthOfLine/2);
         }
         public bool Contains(Vector2f point)
         {
-            double angle = Angle();
-            double accuracy = 0.15*Math.Abs(Math.Pow(angle, 4));
-            if (angle<0.500 && angle>-0.400)
-                accuracy = 0.15;
-            if (angle>0.9999 || (angle<0.010 && angle>-0.011) || (angle<-0.9999))
-                accuracy = 2;
-            double lengthOfLine = Dlina(vertex1.Position, vertex2.Position)+accuracy;
-            double lengthAboutToPoint = Dlina(point.X, point.Y, vertex1.Position.X, vertex1.Position.Y);
-            double checkPointNearToLine = Math.Abs((point.X-vertex1.Position.X)/(vertex2.Position.X-vertex1.Position.X) - (point.Y-vertex1.Position.Y)/(vertex2.Position.Y-vertex1.Position.Y));
-            return (checkPointNearToLine < accuracy) && (lengthAboutToPoint <= lengthOfLine/2);
+            return Contains(point.X, point.Y);
         }
         public Vector2f GetPosVer1()
         {

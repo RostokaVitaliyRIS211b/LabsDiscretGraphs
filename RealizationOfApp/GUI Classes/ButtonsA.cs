@@ -1,5 +1,7 @@
 ﻿
 
+using RealizationOfApp.ElementsOfGraph;
+
 namespace RealizationOfApp
 {
     public class ButtonAdd:EvTextbox
@@ -31,6 +33,7 @@ namespace RealizationOfApp
                 application.graph.AddVertex(circleTextbox.GetString());
                 application.eventDrawables.Add(vertex);
                 textbox.SetFillColorRect(BuffColor);
+                application.ColoringComponentsOfConnection();
             }
         }
         public override void MouseButtonReleased(object? source, IEnumerable<EventDrawableGUI> elementsOfGUI, MouseButtonEventArgs e)
