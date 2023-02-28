@@ -3,7 +3,7 @@
 using RealizationOfApp.ElementsOfGraph;
 using RealizationOfApp.GUI_Classes;
 
-namespace RealizationOfApp
+namespace RealizationOfApp//application
 {
     public class Application
     {
