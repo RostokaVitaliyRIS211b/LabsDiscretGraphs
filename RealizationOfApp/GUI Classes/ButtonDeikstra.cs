@@ -11,7 +11,6 @@ namespace RealizationOfApp.GUI_Classes
         {
             BuffColor = textbox.GetFillRectColor();
             buttons = new();
-
         }
         public override void MouseMoved(object? source, ICollection<EventDrawableGUI> elementsOfGUI, MouseMoveEventArgs e)
         {
@@ -93,7 +92,13 @@ namespace RealizationOfApp.GUI_Classes
                 catch(Exception e)
                 {
                     app.messageToUser.SetString(e.Message);
+                    textbox.SetString("Deikstra");
                 }
+            }
+            else
+            {
+                app.messageToUser.SetString("Graph does not contains this name");
+                textbox.SetString("Deikstra");
             }
         }
     }

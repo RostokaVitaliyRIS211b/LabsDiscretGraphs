@@ -21,6 +21,7 @@ namespace RealizationOfApp.GUI_Classes
                     try
                     {
                         Graph graph = app.graph.GetMinimunFrame();
+                        graph.IsOriented=true;
                         List<Graph.Edge> edges = new(graph.GetEdges());
                         IEnumerable<EdgeEv> edgeEvs = from edge in app.eventDrawables
                                                       where (edge is EdgeEv)

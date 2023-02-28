@@ -1,7 +1,5 @@
-﻿
+﻿using RealizationOfApp.ElementsOfGraph;
 
-using RealizationOfApp.ElementsOfGraph;
-using SFML.Graphics;
 
 namespace RealizationOfApp.GUI_Classes
 {

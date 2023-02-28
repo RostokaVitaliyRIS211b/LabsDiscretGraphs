@@ -171,6 +171,9 @@ namespace Graphs
 
             if (!names.Contains(name))
                 throw new ArgumentException($"This {name} vertex is not exists in graph");
+            if (!CaniGoEveryWhere(name))
+                throw new ArgumentException($"Can`t go to every vertex from this  {name}  vertex");
+               
 
             List<List<string>> ways = new();
             List<string> localNames = new(names);
@@ -221,7 +224,7 @@ namespace Graphs
                 }
 
                 if (minInd==-1)
-                    throw new Exception("Minimum way is not exist");
+                    throw new Exception("Could`t use deikstra to this graph");
 
                 finalmarkOfVertexes[minInd] = true;
                 localNames.Remove(names[minInd]);
@@ -408,6 +411,19 @@ namespace Graphs
                 {
                     flag = i==j || matrixReach[i, j]>0;
                 }
+            }
+            return flag;
+        }
+        public bool CaniGoEveryWhere(string name)
+        {
+            if (!names.Contains(name))
+                throw new ArgumentException($"This {name} does not contains in graph");
+            bool flag = true;
+            Matrix matrixReach = GetMatrixOfReach();
+            int i = names.IndexOf(name);
+            for (int j = 0; j<names.Count && flag; ++j)
+            {
+                flag = i==j || matrixReach[i, j]>0;
             }
             return flag;
         }
