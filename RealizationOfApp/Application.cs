@@ -13,6 +13,8 @@ namespace RealizationOfApp//application
         public int LastCount = 0;
         public bool IsRestart = false;
         public bool IsOriented = true;
+        public float zoom = 1;
+        public View viewOfObjects = new();
         public Textbox messageToUser = new();
         public List<List<EventDrawable>> eventDrawablesStates = new();
         public List<EventDrawable> eventDrawables=new();
@@ -42,8 +44,8 @@ namespace RealizationOfApp//application
                 window.DispatchEvents();
                 window.Clear(new(236,253,230));
                 DeleteObjects();
-                foreach (EventDrawable eventDrawable in eventDrawables)
-                    window.Draw(eventDrawable);
+                foreach(EventDrawable eventDrawable in eventDrawables)
+                        window.Draw(eventDrawable);
                 DisplayMessage();
                 window.Display();
                 LastCount = eventDrawables.Count;
@@ -163,7 +165,6 @@ namespace RealizationOfApp//application
             {
                 eventDrawables[i].MouseWheelScrolled(this, e);
             }
-            Console.WriteLine(graph);
         }
         public void Closed(object? source, EventArgs e)
         {
