@@ -34,21 +34,14 @@ namespace RealizationOfApp.GUI_Classes
                         graph.IsOriented = false;
                         edges = new(graph.GetEdges());
                         StringBuilder builder = new();
-                        Console.WriteLine(edges.Count);
-                        int counter = 1;
+                        int weight = 0;
                         foreach(Graph.Edge edge1 in edges)
                         {
-                            if(counter!=edges.Count)
-                            {
-                                builder.Append($" {edge1.NameOne} ->");
-                            }
-                            else
-                            {
-                                builder.Append($" {edge1.NameOne} -> {edge1.NameTwo}");
-                            }
-                            ++counter;
+                            builder.Append($" {edge1.NameOne} <-> {edge1.NameTwo}  ,");
+                            weight+=edge1.Weight;
                         }
-                        app.messageToUser.SetString(builder.ToString());
+                        builder.Remove(builder.Length-1, 1);
+                        app.messageToUser.SetString(builder.ToString() +$"weight = {weight}");
                     }
                     catch (Exception e1)
                     {

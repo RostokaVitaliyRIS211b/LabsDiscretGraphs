@@ -48,8 +48,21 @@ namespace RealizationOfApp.GUI_Classes
                                                     let vertex = elem as VertexGraph
                                                     where(way.Contains(vertex.GetString()))
                                                     select vertex;
+                List<EdgeEv> edges = new(from elem in app.eventDrawables
+                                         where (elem is EdgeEv)
+                                         let edge = elem as EdgeEv
+                                         where (way.Contains(edge.startVer.GetString()) &&
+                                         way.Contains(edge.endVer.GetString()))
+                                         select edge);
                 foreach (VertexGraph vertex1 in vertices)
                     vertex1.SetTempCol(Color.Magenta);
+                for(int i=0;i<way.Count-1;++i)
+                {
+                    EdgeEv? edge1 = edges.Find(x => x.startVer.GetString()==way[i] && x.endVer.GetString()==way[i+1]);
+                    EdgeEv? edge2 = edges.Find(x => x.endVer.GetString()==way[i] && x.startVer.GetString()==way[i+1]);
+                    edge1?.SetTempColor(Color.Magenta);
+                    edge2?.SetTempColor(Color.Magenta);
+                }
             }
             else if(IsAlive && source is Application app2)
             {

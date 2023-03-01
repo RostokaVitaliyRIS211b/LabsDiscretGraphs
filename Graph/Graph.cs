@@ -279,6 +279,8 @@ namespace Graphs
         }
         public IEnumerable<IEnumerable<string>> ClicksOfGraph()
         {
+            if (!isNotOriented())
+                throw new Exception("Graph must be a not oriented");
             Matrix matrix1 = new(matrix);
             matrix1.ForAll((in1, in2, x) => x==0 ? 1 : 0);
             return new Graph(matrix1,names).GetInnerStabilitySets();
