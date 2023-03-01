@@ -24,11 +24,19 @@ namespace RealizationOfApp.GUI_Classes
         }
         public override void MouseMoved(object? source, ICollection<EventDrawableGUI> elementsOfGUI, MouseMoveEventArgs e)
         {
-            textbox.SetFillColorRect(BuffColor);
+           
             if (IsAlive && source is Application app)
             {
                 if (app.eventDrawables.Count!=lastCount)
                     IsNeedToRemove=true;
+            }
+            if(IsAlive && textbox.Contains(e.X,e.Y))
+            {
+                textbox.SetFillColorRect(new(89, 168, 167));
+            }
+            else
+            {
+                textbox.SetFillColorRect(BuffColor);
             }
         }
         public override void MouseButtonPressed(object? source, ICollection<EventDrawableGUI> elementsOfGUI, MouseButtonEventArgs e)
@@ -42,7 +50,6 @@ namespace RealizationOfApp.GUI_Classes
                                                     select vertex;
                 foreach (VertexGraph vertex1 in vertices)
                     vertex1.SetTempCol(Color.Magenta);
-                textbox.SetFillColorRect(Color.Magenta);
             }
             else if(IsAlive && source is Application app2)
             {

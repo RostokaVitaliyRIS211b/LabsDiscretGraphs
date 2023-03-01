@@ -16,7 +16,7 @@ namespace RealizationOfApp.GUI_Classes
         {
             if (IsAlive && textbox.Contains(e.X, e.Y))
             {
-                textbox.SetFillColorRect(Color.Magenta);
+                textbox.SetFillColorRect(new(89, 168, 167));
             }
             else
             {
@@ -56,7 +56,7 @@ namespace RealizationOfApp.GUI_Classes
                 }
                 else
                 {
-                    app.messageToUser.SetString("Graph is not oriented");
+                    app.messageToUser.SetString("Graph must be oriented");
                 }
             }
         }

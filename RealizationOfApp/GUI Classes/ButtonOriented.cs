@@ -15,7 +15,7 @@ namespace RealizationOfApp.GUI_Classes
         {
             if (IsAlive && textbox.Contains(e.X, e.Y))
             {
-                textbox.SetFillColorRect(Color.Magenta);
+                textbox.SetFillColorRect(new(89, 168, 167));
             }
             else
             {

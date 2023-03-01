@@ -49,7 +49,7 @@ namespace Lines
                 FillColor = Color.Black,
                 Font=font,
                 CharacterSize=15,
-                OutlineColor = Color.White
+                OutlineColor = new(236, 253, 230)
             };
             //weight2 = new(weight1);
         }
@@ -70,7 +70,7 @@ namespace Lines
                 FillColor = Color.Black,
                 Font=font,
                 CharacterSize=CharacterSize,
-                OutlineColor = Color.White
+                OutlineColor = new(236, 253, 230)
             };
             //weight2 = new(weight1);
 

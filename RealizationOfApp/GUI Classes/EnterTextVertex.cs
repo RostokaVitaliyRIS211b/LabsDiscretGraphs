@@ -10,7 +10,7 @@ namespace RealizationOfApp
         public EnterTextVertex(Vector2f position, VertexGraph vertexEv)
         {
             textbox.SetColorText(Color.Black);
-            textbox.SetFillColorRect(Color.White);
+            textbox.SetFillColorRect(Color.Magenta);
             textbox.SetSizeCharacterText(15);
             textbox.SetSizeRect(20, 20);
             textbox.SetString("");
@@ -31,6 +31,7 @@ namespace RealizationOfApp
                 {
                     vertex.SetName(newName);
                     app.graph.ChangeName(oldName, newName);
+                    app.messageToUser.SetString("");
                 }
                 else
                 {

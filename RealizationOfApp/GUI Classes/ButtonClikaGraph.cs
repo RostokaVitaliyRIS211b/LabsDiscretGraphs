@@ -14,7 +14,6 @@ namespace RealizationOfApp.GUI_Classes
         {
             if(IsAlive && textbox.Contains(e.X,e.Y) && source is Application app)
             {
-                textbox.SetFillColorRect(Color.Magenta);
                 if (app.graph.isNotOriented())
                 {
                     try
@@ -58,7 +57,14 @@ namespace RealizationOfApp.GUI_Classes
         }
         public override void MouseMoved(object? source, ICollection<EventDrawableGUI> elementsOfGUI, MouseMoveEventArgs e)
         {
-            textbox.SetFillColorRect(BuffColor);
+            if (IsAlive && textbox.Contains(e.X, e.Y))
+            {
+                textbox.SetFillColorRect(new(89, 168, 167));
+            }
+            else
+            {
+                textbox.SetFillColorRect(BuffColor);
+            }
         }
     }
 }

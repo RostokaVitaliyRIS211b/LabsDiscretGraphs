@@ -11,7 +11,7 @@ namespace RealizationOfApp
         public EnterTextEdge(Vector2f position,EdgeEv edgeEv)
         {
             textbox.SetColorText(Color.Black);
-            textbox.SetFillColorRect(Color.White);
+            textbox.SetFillColorRect(new(236, 253, 230));
             textbox.SetSizeCharacterText(15);
             textbox.SetSizeRect(20, 20);
             textbox.SetString("");
@@ -27,9 +27,17 @@ namespace RealizationOfApp
             else if(IsAlive && e.Code==Keyboard.Key.Enter && source is Application app)
             {
                 IsAlive = false;
-                if (!Int32.TryParse(textbox.GetString(), out weight))
+                bool isCorrect = Int32.TryParse(textbox.GetString(), out weight);
+                if (!isCorrect)
+                {
                     weight = 1;
-                edge.SetWeight(weight);
+                    app.messageToUser.SetString("Weight is not type correctly");
+                }
+                else
+                {
+                    edge.SetWeight(weight);
+                    app.messageToUser.SetString("");
+                }
                 app.graph[edge.startVer.GetString(), edge.endVer.GetString()]=weight;
                 if(!app.IsOriented)
                 {
@@ -37,6 +45,7 @@ namespace RealizationOfApp
                     if(edgeEv is not null)
                     {
                         edgeEv.SetWeight(weight);
+
                     }
                 }
                 foreach (EventDrawable ev in app.eventDrawables)

@@ -60,6 +60,14 @@
         {
             rect.OutlineThickness = thick;
         }
+        public void SetOutlineColorText(Color color)
+        {
+            text.OutlineColor = color;
+        }
+        public void SetOutlineThicknessText(float thick)
+        {
+            text.OutlineThickness = thick;
+        }
         public void SetSizeRect(float width, float height)
         {
             rect.Size = new Vector2f(width, height);

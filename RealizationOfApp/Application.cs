@@ -27,6 +27,7 @@ namespace RealizationOfApp//application
             messageToUser.SetPos(CurrentWidth/2, CurrentHeight-30);
             messageToUser.SetString("");
             window = new RenderWindow(new VideoMode(CurrentWidth, CurrentHeight), "Lines");
+            viewOfObjects = new(window.GetView());
             eventDrawables.Add(new GUI(new GUIFactoryA()));
             window.SetFramerateLimit(60);
             window.MouseMoved+=MouseMoved;
@@ -44,8 +45,8 @@ namespace RealizationOfApp//application
                 window.DispatchEvents();
                 window.Clear(new(236,253,230));
                 DeleteObjects();
-                foreach(EventDrawable eventDrawable in eventDrawables)
-                        window.Draw(eventDrawable);
+                foreach (EventDrawable eventDrawable in eventDrawables)
+                    window.Draw(eventDrawable);
                 DisplayMessage();
                 window.Display();
                 LastCount = eventDrawables.Count;
@@ -161,6 +162,7 @@ namespace RealizationOfApp//application
         }
         public void MouseWheelScrolled(object? source, MouseWheelScrollEventArgs e)
         {
+            Console.WriteLine(viewOfObjects.Size);
             for (int i = 0; i<eventDrawables.Count; ++i)
             {
                 eventDrawables[i].MouseWheelScrolled(this, e);

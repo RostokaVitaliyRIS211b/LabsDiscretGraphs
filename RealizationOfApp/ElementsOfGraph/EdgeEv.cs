@@ -87,6 +87,7 @@ namespace RealizationOfApp.ElementsOfGraph
                 foreach (EventDrawable ev in app2.eventDrawables)
                     ev.IsAlive = false;
                 app2.eventDrawables.Add(new EnterTextEdge(edge.GetWeightPosition(), this));
+                app2.messageToUser.SetString("Type the weight and press enter");
             }
             else if (IsAlive && !IsNew && e.Button == Mouse.Button.Middle && edge.Contains(e.X, e.Y) && source is Application app3)
             {

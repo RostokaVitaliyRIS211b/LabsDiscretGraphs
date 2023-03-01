@@ -79,6 +79,7 @@
                     foreach (EventDrawable drawables in application.eventDrawables)
                         drawables.IsAlive = false;
                     application.eventDrawables.Add(new EnterTextVertex(circle.GetText().Position, this));
+                    application.messageToUser.SetString("Type the name and press enter");
                 }
             }
         }

@@ -16,7 +16,7 @@ namespace RealizationOfApp.GUI_Classes
         {
             if (IsAlive && textbox.Contains(e.X, e.Y))
             {
-                textbox.SetFillColorRect(Color.Magenta);
+                textbox.SetFillColorRect(new(89, 168, 167));
             }
             else
             {
@@ -41,6 +41,7 @@ namespace RealizationOfApp.GUI_Classes
             else if(IsAlive && isUsed && e.Code==Keyboard.Key.Enter && source is Application app)
             {
                 isUsed = false;
+                app.messageToUser.SetString("");
                 ConstructList(textbox.GetString(), app, elementsOfGUI);
                 foreach (EventDrawable eventDrawable in app.eventDrawables)
                     eventDrawable.IsAlive = true;
@@ -56,7 +57,7 @@ namespace RealizationOfApp.GUI_Classes
                     if(!(eventDrawable is GUI))
                         eventDrawable.IsAlive = false;
                 }
-                   
+                app.messageToUser.SetString("Enter the name of start vertex");
                 textbox.SetString("");
                 foreach (ButtonDeikstraList button in buttons)
                     button.IsNeedToRemove=true;
@@ -77,7 +78,7 @@ namespace RealizationOfApp.GUI_Classes
                     textboxSh.SetFillColorRect(Color.Cyan);
                     textboxSh.SetSizeRect(new(100, 30));
                     textboxSh.SetSizeCharacterText(12);
-                    textboxSh.SetPos(new(50, 80));
+                    textboxSh.SetPos(new(50, 90));
                     IEnumerator<int> enumerator = weights.GetEnumerator();
                     enumerator.MoveNext();
                     foreach (IEnumerable<string> way in ways)
