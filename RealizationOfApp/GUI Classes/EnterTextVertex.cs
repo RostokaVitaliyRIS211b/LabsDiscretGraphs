@@ -36,7 +36,7 @@ namespace RealizationOfApp
                 else
                 {
                     app.messageToUser.SetString("This name already exists in graph");
-                    Console.WriteLine("This name already exists in graph");
+                    
                 }
                 foreach (EventDrawable ev in app.eventDrawables)
                     ev.IsAlive=true;

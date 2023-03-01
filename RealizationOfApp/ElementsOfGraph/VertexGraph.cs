@@ -68,6 +68,7 @@
                     edgeEv.IsNeedToRemove = true;
                     edgeEv.arrow.IsNeedToRemove = true;
                 }
+                incindentEdges.Clear();
             }
         }
         public override void KeyPressed(object? source, KeyEventArgs e)

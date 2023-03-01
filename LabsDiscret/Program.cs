@@ -40,10 +40,10 @@ namespace Lines
             //        Console.Write($"{(flag ? " -> " : "")}{name}");
             //        flag = true;
             //    }
-            //    Console.WriteLine($" weight of way = {enumerator.Current}");
+            //    
             //    enumerator.MoveNext();
             //}
-            //Console.WriteLine($"{17.IsItPowOfTwo()}");
+            //
             //Graph graph2 = new Graph();
             //graph2.IsOriented = false;
             //graph2.AddVertex("a");
@@ -100,7 +100,7 @@ namespace Lines
             //    {
             //        Console.Write($" {s} ");
             //    }
-            //    Console.WriteLine("}");
+            //    
             //}
             //Graph graph4 = new();
             //graph4.IsOriented = false;
@@ -116,9 +116,9 @@ namespace Lines
             //graph4["b", "d"] = 3;
             //graph4["b", "e"] = 2;
             //graph4["d", "e"] = 4;
-            //Console.WriteLine(graph4);
+            //
             //Graph ostov = graph4.GetMinimunFrame();
-            //Console.WriteLine(ostov);
+            //
             Application mainWindow = new();
             mainWindow.Start();
         }

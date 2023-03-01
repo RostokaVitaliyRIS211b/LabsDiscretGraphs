@@ -64,12 +64,15 @@ namespace RealizationOfApp//application
                         if (graph.ContainsName(e.startVer.GetString()) && graph.ContainsName(e.endVer.GetString()))
                         {
                             graph[e.startVer.GetString(), e.endVer.GetString()] = 0;
+                            e.startVer = null;
+                            e.endVer = null;
                             isBeenDeletes = true;
                         }
                     }
                     else if (eventDrawables[i] is VertexGraph v)
                     {
                         graph.DeleteVertex(v.GetString());
+                        v.incindentEdges = null;
                         isBeenDeletes = true;
                     }
                     eventDrawables.RemoveAt(i);
@@ -162,7 +165,7 @@ namespace RealizationOfApp//application
         }
         public void MouseWheelScrolled(object? source, MouseWheelScrollEventArgs e)
         {
-            Console.WriteLine(viewOfObjects.Size);
+            
             for (int i = 0; i<eventDrawables.Count; ++i)
             {
                 eventDrawables[i].MouseWheelScrolled(this, e);

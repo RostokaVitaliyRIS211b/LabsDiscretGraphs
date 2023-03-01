@@ -80,19 +80,19 @@
         }
         public void SetPos(float x, float y)
         {
-            //suConsole.WriteLine("rect {0} {1}", rect.Origin, rect.Size);
+            //su
             text.Origin = new Vector2f(text.GetGlobalBounds().Width / 2f, text.GetGlobalBounds().Height / 2f+text.CharacterSize/6f);// магические числа на
             rect.Position = new Vector2f(x, y);
             text.Position = new Vector2f(x, y);
-            //suConsole.WriteLine("text {0} {1} {2}", text.Origin, text.GetGlobalBounds().Width, text.GetGlobalBounds().Top);
+            //su
         }
         public void SetPos(Vector2f vec)
         {
-            //suConsole.WriteLine("rect {0} {1}", rect.Origin, rect.Size);
+            //su
             text.Origin = new Vector2f(text.GetGlobalBounds().Width / 2f, text.GetGlobalBounds().Height / 2f + text.CharacterSize / 6f);// магические числа на
             rect.Position = vec;
             text.Position = vec;
-            //suConsole.WriteLine("text {0} {1} {2}", text.Origin, text.GetGlobalBounds().Width, text.GetGlobalBounds().Top);
+            //su
         }
         public void SetSizeCharacterText(int size)
         {
@@ -249,19 +249,19 @@
         }
         public void SetPosition(Vector2f pos)
         {
-            //suConsole.WriteLine("rect {0} {1}", rect.Origin, rect.Size);
+            //su
             text.Origin = new Vector2f(text.GetGlobalBounds().Width / 2f, text.GetGlobalBounds().Height / 2f+text.CharacterSize/6f);// магические числа на
             circle.Position = pos;
             text.Position = pos;
-            //suConsole.WriteLine("text {0} {1} {2}", text.Origin, text.GetGlobalBounds().Width, text.GetGlobalBounds().Top);
+            //su
         }
         public void SetPosition(float x,float y)
         {
-            //suConsole.WriteLine("rect {0} {1}", rect.Origin, rect.Size);
+            //su
             text.Origin = new Vector2f(text.GetGlobalBounds().Width / 2f, text.GetGlobalBounds().Height / 2f+text.CharacterSize/6f);// магические числа на
             circle.Position = new Vector2f(x, y);
             text.Position = new Vector2f(x, y);
-            //suConsole.WriteLine("text {0} {1} {2}", text.Origin, text.GetGlobalBounds().Width, text.GetGlobalBounds().Top);
+            //su
         }
         public bool Contains(float x,float y)
         {
