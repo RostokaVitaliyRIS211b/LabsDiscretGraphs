@@ -105,7 +105,7 @@
                     incindentEdges.RemoveAt(i);
                     --i;
                 }
-                else if (circle.Contains(incindentEdges[i].GetPosVer1()))
+                else if (incindentEdges[i].startVer==this)
                 {
                     incindentEdges[i].SetPosVer1(x, y);
                 }
