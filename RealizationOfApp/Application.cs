@@ -170,6 +170,7 @@ namespace RealizationOfApp//application
             {
                 eventDrawables[i].MouseWheelScrolled(this, e);
             }
+            ColoringComponentsOfConnection();
         }
         public void Closed(object? source, EventArgs e)
         {
